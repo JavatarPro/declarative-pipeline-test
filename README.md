@@ -24,5 +24,10 @@ add env variable to your system
     
 configure development
 
-    ln -s ${DECLARATIVE_PIPELINE_HOME}/src  ${DECLARATIVE_PIPELINE_TEST_HOME}/nomad-test/src/main
+    ln -s ${DECLARATIVE_PIPELINE_HOME}/src  ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy
+    mvn clean package
     
+    
+after changes in test     
+    
+    rm  ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy
