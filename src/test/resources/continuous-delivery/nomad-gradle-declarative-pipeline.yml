@@ -1,0 +1,75 @@
+service:
+  name: ${repo}
+  buildType: gradle
+  vcs_repo: service
+  orchestration: nomad
+
+pipeline:
+  suit: service
+
+gradle:
+  repository:
+    id: nexus
+    url: http://127.0.0.1:8080/repository/maven-releases/
+
+nomad:
+  dev:
+    url: http://127.0.0.1:4646
+    vcsConfig: nomad-dev
+    deploymentTimeout: P3M
+  qa:
+    url: http://127.0.0.1:4646
+    vcsConfig: nomad-dev
+    deploymentTimeout: P3M
+
+docker:
+  registries:
+    dev: dev-registry
+    qa: qa-registry
+    prod: prod-registry
+
+docker-registries:
+  dev-registry:
+    credentialsId: dev-docker-registry-on-nexus
+    registry: 127.0.0.1:18000
+  qa-registry:
+    credentialsId: dev-docker-registry-on-nexus
+    registry: 127.0.0.1:19000
+  prod-registry:
+    credentialsId: prod-docker-registry
+    registry: https://docker.javatar.io
+
+vcs:
+  repo:
+    service:
+      name: ${repo}
+      owner: javatar
+      credentialsId: github-jenkins-ssh-key
+      domain: github.com
+      type: github
+      revisionControl: git
+    nomad-dev:
+      name: nomad-templates
+      owner: javatar
+      credentialsId: bitbucket-jenkins-ssh-key
+      domain: bitbucket.com
+      type: bitbucket
+      revisionControl: git
+      branch: master
+
+auto-test:
+  skipCodeQualityVerification: false
+  skipSystemTests: false
+  sleepInSeconds: 30
+
+sonar:
+  enabled: true
+  serverUrl: http://127.0.0.1:8090
+  qualityGateEnabled: false
+  qualityGateSleepInSeconds: 30
+  jenkinsSettingsName: SonarQube
+  params: ""
+
+jenkins_tool:
+  gradle: gradle
+  java: JDK11
