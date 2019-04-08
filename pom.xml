@@ -14,28 +14,19 @@
         <groovy.http.builder.version>0.7.1</groovy.http.builder.version>
         <spock-reports.version>1.2.13</spock-reports.version>
         <spock-core.version>1.1-groovy-2.4</spock-core.version>
-        <eureka-client.version>1.1.37</eureka-client.version>
-        <jackson.version>2.7.4</jackson.version>
+        <jackson.version>2.9.8</jackson.version>
         <junit.version>4.12</junit.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.1.3</logback.version>
-        <utils.version>0.0.1-SNAPSHOT</utils.version>
-        <unirest.version>1.4.9</unirest.version>
-        <resetassured.version>3.0.3</resetassured.version>
         <apachecommons.version>3.3</apachecommons.version>
-        <jcraft.version>0.1.54</jcraft.version>
-        <activemq-core.version>5.7.0</activemq-core.version>
-        <gson.version>2.3.1</gson.version>
-        <jackson.version>2.7.4</jackson.version>
 
         <commons-validator.version>1.4.1</commons-validator.version>
         <commons-io.version>2.4</commons-io.version>
         <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-cli.version>1.2</commons-cli.version>
+        <commons-io.version>2.4</commons-io.version>
 
         <javax.ws.version>2.1.1</javax.ws.version>
-
-        <spock-core.version>1.1-groovy-2.4</spock-core.version>
-        <spock-reports.version>1.2.13</spock-reports.version>
 
         <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>2.20</maven.surefire.plugin.version>
@@ -44,46 +35,8 @@
         <groovy.eclipse.batch.compiler.plugin.version>2.4.3-01</groovy.eclipse.batch.compiler.plugin.version>
 
         <com.athaydes.spockframework.report.outputDir>target/spock-reports</com.athaydes.spockframework.report.outputDir>
-        <gson.version>2.3.1</gson.version>
         <commons-validator.version>1.4.1</commons-validator.version>
-        <commons-io.version>2.4</commons-io.version>
-        <commons-lang3.version>3.4</commons-lang3.version>
-        <commons-cli.version>1.2</commons-cli.version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.mashape.unirest</groupId>
-                <artifactId>unirest-java</artifactId>
-                <version>${unirest.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.rest-assured</groupId>
-                <artifactId>rest-assured</artifactId>
-                <version>${resetassured.version}</version>
-                <exclusions>
-                    <!-- Exclude Groovy because of classpath issue -->
-                    <exclusion>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.rest-assured</groupId>
-                <artifactId>json-path</artifactId>
-                <version>RELEASE</version>
-                <exclusions>
-                    <!-- Exclude Groovy because of classpath issue -->
-                    <exclusion>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
 
@@ -137,14 +90,6 @@
             <version>${logback.version}</version>
         </dependency>
 
-        <!-- discovery client -->
-
-        <dependency>
-            <groupId>com.netflix.eureka</groupId>
-            <artifactId>eureka-client</artifactId>
-            <version>${eureka-client.version}</version>
-        </dependency>
-
         <!-- jackson dependencies -->
 
         <dependency>
@@ -188,18 +133,6 @@
             <artifactId>spock-reports</artifactId>
             <version>${spock-reports.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.jcraft</groupId>
-            <artifactId>jsch</artifactId>
-            <version>${jcraft.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
         </dependency>
 
         <dependency>

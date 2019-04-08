@@ -41,6 +41,12 @@
     cd ${DECLARATIVE_PIPELINE_TEST_HOME}
     mvn clean package
     # you schoul see BUILD SUCCESS, if not verify: javac -version, should be 1.8
+    rm ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy
+    
+### configure development for debugging
+
+    mv ${DECLARATIVE_PIPELINE_HOME}/src ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy
+    # now you can debug using Intelij Idea
    
 ## add new features to declarative-pipeline
 

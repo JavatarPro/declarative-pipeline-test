@@ -85,6 +85,11 @@ class Utils<T> {
         return file
     }
 
+    static T readFileAsObject(String classpath, Class<T> clazz) {
+        String content = IOUtils.toString(Utils.class.getClassLoader().getResourceAsStream(classpath))
+        return new ObjectMapper().readValue(content, clazz)
+    }
+
     //returns converted JSON data into class that describes those
     static T convert(def data, Class<T> clazz) {
         return new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(data), clazz)

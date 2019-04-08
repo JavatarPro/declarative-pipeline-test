@@ -1,7 +1,9 @@
 package pro.javatar.pipeline.service.orchestration
 
 import groovy.util.logging.Slf4j
+import pro.javatar.pipeline.Utils
 import pro.javatar.pipeline.builder.model.Environment
+import pro.javatar.pipeline.service.orchestration.model.DeploymentRequestBO
 import pro.javatar.pipeline.service.orchestration.model.NomadBO
 import spock.lang.Specification
 
@@ -14,10 +16,12 @@ class NomadServiceTest extends Specification {
 
     def "check nomad service"() {
         given: "given "
-        Map<Environment, NomadBO> nomadConfig = new HashMap<>()
+        Map<String, NomadBO> nomadConfig = new HashMap<>()
         NomadService nomadService = new NomadService(nomadConfig)
         when: "some when"
-
+        nomadService.setup()
+        DeploymentRequestBO deploymentRequestBO = Utils.readFileAsObject()
+        nomadService.dockerDeployContainer()
 
         then: "expect"
         expect:
