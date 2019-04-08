@@ -1,14 +1,10 @@
 package pro.javatar.pipeline
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.gson.JsonElement
-import com.google.gson.JsonParser
 import groovy.json.JsonSlurper
 import groovy.text.GStringTemplateEngine
 import org.apache.commons.io.IOUtils
 import org.apache.commons.lang3.Validate
-import javax.ws.rs.core.HttpHeaders
-import javax.ws.rs.core.MediaType
 import static org.junit.Assert.assertTrue
 
 class Utils<T> {
@@ -35,13 +31,6 @@ class Utils<T> {
     static def renderTemplate(String classpath, Map binding) throws FileNotFoundException {
         String content = IOUtils.toString(Utils.class.getClassLoader().getResourceAsStream(classpath))
         return applyVariablesBinding(content);
-    }
-
-    static boolean compareJsonStrings(String json1, String json2) {
-        JsonParser parser = new JsonParser();
-        JsonElement jsonObj1 = parser.parse(json1)
-        JsonElement jsonObj2 = parser.parse(json2)
-        return jsonObj1.equals(jsonObj2)
     }
 
     static InputStream getResourceStream(String classpath) {
@@ -99,12 +88,8 @@ class Utils<T> {
         return new ObjectMapper().writeValueAsString(object)
     }
 
-    static void assertContentType(def resp) {
-        assertContentType(resp, MediaType.APPLICATION_JSON)
-    }
-
     static void assertContentType(def resp, String mimeType) {
-        assertTrue(resp.headers."${HttpHeaders.CONTENT_TYPE}".equalsIgnoreCase(mimeType))
+        assertTrue(resp.headers."Content-Type".equalsIgnoreCase(mimeType))
     }
 
     static def getValueByNameFromJsonFile(String propertyName, String classpath) {
