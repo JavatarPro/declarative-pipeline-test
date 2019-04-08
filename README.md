@@ -47,6 +47,11 @@
 
     mv ${DECLARATIVE_PIPELINE_HOME}/src ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy
     # now you can debug using Intelij Idea
+    cp -r ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy ${DECLARATIVE_PIPELINE_HOME}/src
+    # commit & push
+    rm -r ${DECLARATIVE_PIPELINE_HOME}/src
+    # or just ignore it as source in Intelij Idea
+
    
 ## add new features to declarative-pipeline
 
