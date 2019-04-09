@@ -1,0 +1,15 @@
+{
+  "imageName": "localization-postgres-img",
+  "imageVersion": "1.0.0",
+  "env": "dev",
+  "templateFolder": "nomad-templates",
+  "templateFiles": [],
+  "service": "localization-postgres",
+  "buildNumber": 17,
+  "templateVariables": {
+    "imageName": "localization-postgres-img",
+    "service": "localization-postgres",
+    "env": "dev",
+    "buildNumber": 17
+  }
+}
