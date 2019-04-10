@@ -41,7 +41,7 @@ class Utils<T> {
         return IOUtils.toString(Utils.class.getClassLoader().getResourceAsStream(classpath))
     }
 
-    def static getFileAsString(classpath, Map vars) {
+    static String getFileAsString(classpath, Map vars) {
         def body = IOUtils.toString(Utils.class.getClassLoader().getResourceAsStream(classpath))
         return applyVariablesBinding(body, vars)
     }

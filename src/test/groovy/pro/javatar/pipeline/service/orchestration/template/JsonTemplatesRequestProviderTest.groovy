@@ -1,5 +1,6 @@
 package pro.javatar.pipeline.service.orchestration.template
 
+import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
 import pro.javatar.pipeline.Utils
@@ -26,27 +27,44 @@ class JsonTemplatesRequestProviderTest extends Specification {
         provider = new JsonTemplatesRequestProvider()
     }
 
-    @Ignore
-    def createRequestMainTemplate() {
-        given: "given orchestration request for service that does not contain specific configuration"
-        OrchestrationRequest request =
-                getOrchestrationRequest("nomad-request/l10n-service-orchestration-request.json")
-        String templateFolder = Utils.getFullFileName("nomad-templates")
-        request.setTemplateFolder(templateFolder)
+    @Unroll
+    def "create request for #service where  #scenario"(String service, String env, int cpu, int ram, int port,
+                                                       int count, String scenario) {
+        given: "given ${scenario} with orchestration request for ${service} in ${env} to create request"
+        def request =  getOrchestrationRequest("nomad-request/${service}-orchestration-request.json")
+        amendTemplateFolder(request)
+        request.setEnv(env)
 
-        when: "provider creates nomad request service that does not contain specific configuration overrides"
+        when: "provider creates nomad request for service ${service} when ${scenario}"
         String actualRequest = provider.createRequest(request)
-        logger.info("actualRequest: \n${actualRequest}")
+        logger.debug("json validation, if json is not valid, JsonOutput.prettyPrint will throw exception")
+        JsonOutput.prettyPrint(actualRequest)
 
-        then: "expected that json contains all appropriate variables, passed from pipeline " +
-                "merged with variable.properties"
+        then: "expected that json contains all appropriate variables, passed by orchestration request " +
+                "merged with *variable.properties and *request.json"
+
         def actual = new JsonSlurper().parseText(actualRequest)
-        assertThat(actual.Job[0].Tasks[0].Resources.cpu, is(750))
+
+        expect:
+        actual.Job[0].Tasks[0].Resources.cpu == cpu
+        actual.Job[0].Tasks[0].Resources.MemoryMB == ram
+        actual.Job.TaskGroups[0].Tasks[0].Resources.Networks[0].DynamicPorts[0].Label == service
+        actual.Job.TaskGroups[0].Tasks[0].Config.port_map[0]."${service}" == service
+
+
+        where:
+        service          | env   | cpu  | ram  | port | count| scenario
+        "l10n-service"   | "qa"  | 3800 | 4096 | 8080 | 1    | "only main variable & request files"
+        "consul"         | "dev" | 1900 | 2048 | 8080 | 1    | "main & env variable & request files"
+        "l10n-postgres"  | "qa"  | 3800 | 4096 | 5432 | 1    | "main & service env variable & request files"
+        "eureka"         | "qa"  | 3800 | 4096 | 8761 | 1    | "main & service main variable & request files"
+        "pricing-mysql"  | "dev" | 1900 | 2048 | 3306 | 1    | "main, env & service env variable & request files"
+        "gateway-redis"  | "dev" | 1900 | 2048 | 6379 | 2    | "main, service main, env & service env variable & request files"
     }
 
     @Unroll
     def "get template file contents for #service where #scenario"(String service, String env, int count, String scenario) {
-        given: "given ${scenario} with orchestration request for ${service} in ${env} env to verify merge of variables"
+        given: "given ${scenario} with orchestration request for ${service} in ${env} env files count"
         def request =  getOrchestrationRequest("nomad-request/${service}-orchestration-request.json")
         amendTemplateFolder(request)
         request.setEnv(env)
