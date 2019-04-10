@@ -11,8 +11,6 @@ import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static org.hamcrest.MatcherAssert.assertThat
-
 @Slf4j(value = "logger")
 class JsonTemplatesRequestProviderTest extends Specification {
 
@@ -27,6 +25,7 @@ class JsonTemplatesRequestProviderTest extends Specification {
         provider = new JsonTemplatesRequestProvider()
     }
 
+    @Ignore
     @Unroll
     def "create request for #service where  #scenario"(String service, String env, int cpu, int ram, int port,
                                                        int count, String scenario) {
