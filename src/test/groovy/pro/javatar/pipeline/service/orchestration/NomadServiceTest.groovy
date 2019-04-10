@@ -7,6 +7,7 @@ import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.service.orchestration.model.DeploymentRequestBO
 import pro.javatar.pipeline.service.orchestration.model.DeploymentResponseBO
 import pro.javatar.pipeline.service.orchestration.model.NomadBO
+import spock.lang.Ignore
 import spock.lang.Specification
 
 @Slf4j(value = "logger")
@@ -17,6 +18,7 @@ class NomadServiceTest extends Specification {
         PipelineDslHolder.dsl = new PipelineDslHolderMock()
     }
 
+    @Ignore
     def "check nomad service"() {
         given: "given "
         Map<String, NomadBO> nomadConfig = new HashMap<>()

@@ -6,6 +6,7 @@ import pro.javatar.pipeline.Utils
 import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.service.orchestration.model.OrchestrationRequest
+import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -25,6 +26,7 @@ class JsonTemplatesRequestProviderTest extends Specification {
         provider = new JsonTemplatesRequestProvider()
     }
 
+    @Ignore
     def createRequestMainTemplate() {
         given: "given orchestration request for service that does not contain specific configuration"
         OrchestrationRequest request =
