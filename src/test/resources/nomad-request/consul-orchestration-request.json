@@ -1,0 +1,9 @@
+{
+  "imageName": "consul-img",
+  "imageVersion": "1.0.0",
+  "env": "dev",
+  "templateFolder": "nomad-templates",
+  "templateFiles": [],
+  "service": "consul",
+  "buildNumber": 15
+}

@@ -1,0 +1,9 @@
+{
+  "imageName": "l10n-postgres-img",
+  "imageVersion": "1.0.0",
+  "env": "qa",
+  "templateFolder": "nomad-templates",
+  "templateFiles": [],
+  "service": "l10n-postgres",
+  "buildNumber": 15
+}

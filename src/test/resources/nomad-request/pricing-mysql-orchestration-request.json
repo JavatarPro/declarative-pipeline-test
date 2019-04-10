@@ -1,0 +1,9 @@
+{
+  "imageName": "pricing-mysql-img",
+  "imageVersion": "1.0.0",
+  "env": "dev",
+  "templateFolder": "nomad-templates",
+  "templateFiles": [],
+  "service": "pricing-mysql",
+  "buildNumber": 15
+}

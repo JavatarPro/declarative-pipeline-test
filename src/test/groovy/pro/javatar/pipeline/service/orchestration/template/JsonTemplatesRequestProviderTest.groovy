@@ -28,7 +28,7 @@ class JsonTemplatesRequestProviderTest extends Specification {
     def createRequestMainTemplate() {
         given: "given orchestration request for service that does not contain specific configuration"
         OrchestrationRequest request =
-                getOrchestrationRequest("nomad-request/localization-service-orchestration-request.json")
+                getOrchestrationRequest("nomad-request/l10n-service-orchestration-request.json")
         String templateFolder = Utils.getFullFileName("nomad-templates")
         request.setTemplateFolder(templateFolder)
 
@@ -43,29 +43,38 @@ class JsonTemplatesRequestProviderTest extends Specification {
     }
 
     @Unroll
-    def "get merged variables for #service int #env env"(String service, String env, int cpu, int ram, int count) {
-        given: "given orchestration request for ${service} in ${env} env to verify merge of variables"
+    def "merge variables for #service where #scenario"(String service, String env, int cpu, int ram, int port, int count,
+                                             String scenario) {
+        given: "given ${scenario} with orchestration request for ${service} in ${env} env to verify merge of variables"
         def request =  getOrchestrationRequest("nomad-request/${service}-orchestration-request.json")
+        amendTemplateFolder(request)
         request.setEnv(env)
 
         when: "merged variables for ${service} in ${env} environment"
         def actual = provider.getMergedVariables(request)
-        assertThat(actual.size(), is())
 
-        then: "expected cpu: ${cpu}, ram: ${ram}, variable map size: ${count}"
+        then: "expected overrides in order: main <- env <- main service <- env service"
 
         expect:
-        actual.cpu == cpu
-        actual.ram == ram
-        actual.size() == count
+        actual.cpu == "${cpu}"
+        actual.ram == "${ram}"
+        actual.count == "${count}"
         request.env == env
         request.service == service
 
         where:
-        service                | env   | cpu  | ram  | count
-        "localization-postgres"| "dev" | 3800 | 4096 | 2
-        "localization-service" | "dev" | 3800 | 4096 | 2
-        "eureka-service"       | "dev" | 3800 | 4096 | 2
+        service          | env   | cpu  | ram  | port | count| scenario
+        "l10n-service"   | "qa"  | 3800 | 4096 | 8080 | 1    | "only main variables file"
+        "consul"         | "dev" | 1900 | 2048 | 8080 | 1    | "main & env variables files"
+        "l10n-postgres"  | "qa"  | 3800 | 4096 | 5432 | 1    | "main & service env variables files"
+        "eureka"         | "qa"  | 3800 | 4096 | 8761 | 1    | "main & service main variables files"
+        "pricing-mysql"  | "dev" | 1900 | 2048 | 3306 | 1    | "main, env & service env variables files"
+        "gateway-redis"  | "dev" | 1900 | 2048 | 6379 | 2    | "main, service main, env & service env variables files"
+    }
+
+    void amendTemplateFolder(OrchestrationRequest request) {
+        String templateFolder = Utils.getFullFileName(request.getTemplateFolder())
+        request.setTemplateFolder(templateFolder)
     }
 
     OrchestrationRequest getOrchestrationRequest(String file) {

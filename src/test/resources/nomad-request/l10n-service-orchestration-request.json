@@ -1,0 +1,9 @@
+{
+  "imageName": "l10n-service-img",
+  "imageVersion": "1.0.0",
+  "env": "qa",
+  "templateFolder": "nomad-templates",
+  "templateFiles": [],
+  "service": "l10n-service",
+  "buildNumber": 15
+}

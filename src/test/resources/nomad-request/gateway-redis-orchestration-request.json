@@ -1,0 +1,9 @@
+{
+  "imageName": "gateway-redis-img",
+  "imageVersion": "1.0.0",
+  "env": "uat",
+  "templateFolder": "nomad-templates",
+  "templateFiles": [],
+  "service": "gateway-redis",
+  "buildNumber": 15
+}

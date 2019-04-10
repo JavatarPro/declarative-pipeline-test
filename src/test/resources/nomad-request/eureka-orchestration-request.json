@@ -1,0 +1,9 @@
+{
+  "imageName": "eureka-img",
+  "imageVersion": "1.0.0",
+  "env": "qa",
+  "templateFolder": "nomad-templates",
+  "templateFiles": [],
+  "service": "eureka",
+  "buildNumber": 15
+}

@@ -10,7 +10,7 @@
     "TaskGroups": [
       {
         "Name": "${groupName}",
-        "Count": 1,
+        "Count": ${count},
         "Tasks": [
           {
             "Name": "${service}-task",
