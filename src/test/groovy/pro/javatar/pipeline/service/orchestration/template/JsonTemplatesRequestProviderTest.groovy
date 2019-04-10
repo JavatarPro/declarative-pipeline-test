@@ -45,6 +45,33 @@ class JsonTemplatesRequestProviderTest extends Specification {
     }
 
     @Unroll
+    def "get template file contents for #service where #scenario"(String service, String env, int count, String scenario) {
+        given: "given ${scenario} with orchestration request for ${service} in ${env} env to verify merge of variables"
+        def request =  getOrchestrationRequest("nomad-request/${service}-orchestration-request.json")
+        amendTemplateFolder(request)
+        request.setEnv(env)
+
+        when: "get template files for ${service} in ${env} environment"
+        def actual = provider.getTemplateFileContents(request)
+
+        then: "expected count ${count} where ${scenario}"
+
+        expect:
+        actual.size() == count
+        request.env == env
+        request.service == service
+
+        where:
+        service          | env   | count| scenario
+        "l10n-service"   | "qa"  | 1    | "only main request file"
+        "consul"         | "dev" | 2    | "main & env request files"
+        "l10n-postgres"  | "qa"  | 2    | "main & service env request files"
+        "eureka"         | "qa"  | 2    | "main & service main request files"
+        "pricing-mysql"  | "dev" | 3    | "main, env & service env request files"
+        "gateway-redis"  | "dev" | 4    | "main, service main, env & service env request files"
+    }
+
+    @Unroll
     def "merge variables for #service where #scenario"(String service, String env, int cpu, int ram, int port, int count,
                                              String scenario) {
         given: "given ${scenario} with orchestration request for ${service} in ${env} env to verify merge of variables"
