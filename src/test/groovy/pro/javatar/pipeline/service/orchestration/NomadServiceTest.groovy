@@ -99,7 +99,9 @@ class NomadServiceTest extends Specification {
     DeploymentRequestBO getDeploymentRequestBO(String service, String env) {
         DeploymentRequestBO request =
                 Utils.readFileAsObject("deployment-request/deployment-request-bo.json", DeploymentRequestBO.class)
-        return request.withImageName(service).withEnvironment(env)
+        return request.withImageName(service)
+                .withService(service)
+                .withEnvironment(env)
     }
 
 }
