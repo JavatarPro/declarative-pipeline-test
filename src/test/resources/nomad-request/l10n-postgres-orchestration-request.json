@@ -1,6 +1,6 @@
 {
-  "imageName": "l10n-postgres-img",
-  "imageVersion": "1.0.0",
+  "dockerRegistry": "dev-docker-registry-url",
+  "dockerImage": "l10n-postgres:1.0.0",
   "env": "qa",
   "templateFolder": "nomad-templates",
   "templateFiles": [],

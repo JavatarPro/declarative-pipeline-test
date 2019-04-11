@@ -1,6 +1,6 @@
 {
-  "imageName": "gateway-redis-img",
-  "imageVersion": "1.0.0",
+  "dockerRegistry": "dev-docker-registry-url",
+  "dockerImage": "gateway-redis:1.0.0",
   "env": "uat",
   "templateFolder": "nomad-templates",
   "templateFiles": [],

@@ -12,5 +12,5 @@
     "ssh": true,
     "branch": "master"
   },
-  "nomadFolder": "../null"
+  "nomadFolder": "nomad-templates"
 }

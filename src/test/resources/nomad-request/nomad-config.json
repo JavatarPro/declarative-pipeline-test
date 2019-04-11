@@ -1,0 +1,50 @@
+{
+  "dev": {
+    "env": "dev",
+    "url": "http://127.0.0.1:4646",
+    "deploymentTimeout": "P3M",
+    "vcsRepo": {
+      "name": "nomad-templates",
+      "owner": "javatar",
+      "credentialsId": "bitbucket-jenkins-ssh-key",
+      "domain": "bitbucket.com",
+      "type": "BITBUCKET",
+      "revisionControlType": "GIT",
+      "ssh": true,
+      "branch": "master"
+    },
+    "nomadFolder": "nomad-templates"
+  },
+  "qa": {
+    "env": "qa",
+    "url": "http://127.0.0.1:4646",
+    "deploymentTimeout": "P3M",
+    "vcsRepo": {
+      "name": "nomad-templates",
+      "owner": "javatar",
+      "credentialsId": "bitbucket-jenkins-ssh-key",
+      "domain": "bitbucket.com",
+      "type": "BITBUCKET",
+      "revisionControlType": "GIT",
+      "ssh": true,
+      "branch": "master"
+    },
+    "nomadFolder": "nomad-templates"
+  },
+  "uat": {
+    "env": "uat",
+    "url": "http://127.0.0.1:4646",
+    "deploymentTimeout": "P3M",
+    "vcsRepo": {
+      "name": "nomad-templates",
+      "owner": "javatar",
+      "credentialsId": "bitbucket-jenkins-ssh-key",
+      "domain": "bitbucket.com",
+      "type": "BITBUCKET",
+      "revisionControlType": "GIT",
+      "ssh": true,
+      "branch": "master"
+    },
+    "nomadFolder": "nomad-templates"
+  }
+}

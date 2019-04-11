@@ -1,6 +1,6 @@
 {
-  "imageName": "consul-img",
-  "imageVersion": "1.0.0",
+  "dockerRegistry": "dev-docker-registry-url",
+  "dockerImage": "consul:1.0.0",
   "env": "dev",
   "templateFolder": "nomad-templates",
   "templateFiles": [],

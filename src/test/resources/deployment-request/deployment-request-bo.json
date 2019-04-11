@@ -1,6 +1,6 @@
 {
   "imageName": "eureka-service",
-  "imageVersion": "1.00",
+  "imageVersion": "1.0.0",
   "dockerRegistry": {
     "credentialsId": "45a53f9f-22c7-41e4-aedf-694618e9117b",
     "registry": "dev-docker-registry-on-nexus"
