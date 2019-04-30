@@ -48,6 +48,7 @@
     mv ${DECLARATIVE_PIPELINE_HOME}/src ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy
     # or just
     cp -R ${DECLARATIVE_PIPELINE_HOME}/src ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy
+    cp -R ${DECLARATIVE_PIPELINE_HOME}/src/ ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy/
     # now you can debug using Intelij Idea
     cp -r ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy/ ${DECLARATIVE_PIPELINE_HOME}/src/
     # commit & push
