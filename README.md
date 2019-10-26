@@ -45,17 +45,15 @@
     
 ### configure development for debugging
 
-    mv ${DECLARATIVE_PIPELINE_HOME}/src ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy
-    # or just
-    cp -R ${DECLARATIVE_PIPELINE_HOME}/src ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy
     cp -R ${DECLARATIVE_PIPELINE_HOME}/src/ ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy/
     # now you can debug using Intelij Idea
-    cp -r ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy/ ${DECLARATIVE_PIPELINE_HOME}/src/
-    # commit & push
-    rm -r ${DECLARATIVE_PIPELINE_HOME}/src
-    # or just ignore it as source in Intelij Idea
+    
+### commit code after successful debug
 
-   
+    cp -r ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy/ ${DECLARATIVE_PIPELINE_HOME}/src/
+    # commit & push 
+    # src/main/groovy already ignored in .gitignore and should not be pushed
+
 ## add new features to declarative-pipeline
 
 - add new feature
