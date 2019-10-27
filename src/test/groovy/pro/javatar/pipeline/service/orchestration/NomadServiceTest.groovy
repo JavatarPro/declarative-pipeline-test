@@ -31,12 +31,12 @@ class NomadServiceTest extends Specification {
     def "deploy docker container of #service using nomad where #scenario"(String service, String env, int cpu,
                                                                           int ram, int port, int count, String scenario) {
         DeploymentRequestBO request = getDeploymentRequestBO(service, env)
-        logger.info("request: ${request}")
+        logger.info("request: " + request.toString())
         given: "given nomad service and deployment request"
 
         when: "we call dockerDeployContainer with given request"
         DeploymentResponseBO response = nomadService.dockerDeployContainer(request)
-        logger.info("response: ${response}")
+        logger.info("response: " + response.toString())
 
         then: "expect response is positive"
 
