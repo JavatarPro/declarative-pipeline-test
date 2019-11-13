@@ -56,6 +56,12 @@
             <version>1.24</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.21</version>
+        </dependency>
+
         <!-- easy http client for groovy -->
 
         <dependency>
