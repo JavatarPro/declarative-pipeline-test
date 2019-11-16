@@ -71,5 +71,5 @@ sonar:
   params: ""
 
 jenkins_tool:
-  gradle: gradle
+  gradle: gradle_5.6.3
   java: JDK11
