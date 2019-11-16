@@ -58,9 +58,12 @@ vcs:
       branch: master
 
 auto-test:
-  skipCodeQualityVerification: false
-  skipSystemTests: false
-  sleepInSeconds: 30
+  enabled: true
+  timeout: PT7M
+  initialDelay: PT30S
+  jobName: system-tests
+
+
 
 sonar:
   enabled: true
