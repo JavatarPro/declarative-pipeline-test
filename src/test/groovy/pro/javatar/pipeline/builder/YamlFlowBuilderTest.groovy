@@ -6,7 +6,6 @@ package pro.javatar.pipeline.builder
 
 import groovy.util.logging.Slf4j
 import pro.javatar.pipeline.Flow
-import pro.javatar.pipeline.YamlFlowBuilder
 import pro.javatar.pipeline.jenkins.api.JenkinsDslService
 import pro.javatar.pipeline.mock.JenkinsDslServiceMock
 import pro.javatar.pipeline.mock.PipelineDslHolderMock
