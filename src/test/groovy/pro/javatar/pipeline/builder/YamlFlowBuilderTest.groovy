@@ -54,6 +54,7 @@ class YamlFlowBuilderTest extends Specification {
         gradleConfig.versionFile() == "gradle.properties"
         gradleConfig.repositoryUrl() == "http://127.0.0.1:8080/repository/maven-releases/"
         gradleConfig.repositoryId() == "nexus"
+        gradleConfig.repositoryCredentialsId() == "jenkins-nexus-maven-upload"
 
         and: "auto test config is correct"
         AutoTestConfig autoTestConfig = config.autoTestConfig();

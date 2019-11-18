@@ -50,6 +50,11 @@ class JenkinsDslServiceMock implements JenkinsDslService {
     }
 
     @Override
+    void executeSecureShell(String command, String credentialsId, String userVariable, String passwordVariable) {
+        log.info("sh " + command);
+    }
+
+    @Override
     void addToPath(String toolName, String variable) {
         log.info("addToPath: toolName: {}, variable: {}" + toolName, variable);
     }
