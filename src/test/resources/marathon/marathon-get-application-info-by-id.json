@@ -1,0 +1,143 @@
+{
+  "app": {
+    "id": "/simple-java-service-dev",
+    "backoffFactor": 1.15,
+    "backoffSeconds": 1,
+    "container": {
+      "type": "DOCKER",
+      "docker": {
+        "forcePullImage": true,
+        "image": "docker-dev.javatar.space/simple-java-service:0.0.1.25",
+        "parameters": [
+          {
+            "key": "hostname",
+            "value": "simple-java-service.dev"
+          },
+          {
+            "key": "label",
+            "value": "service_name=simple-java-service"
+          },
+          {
+            "key": "label",
+            "value": "environment=dev"
+          }
+        ],
+        "privileged": false
+      },
+      "volumes": [
+        {
+          "containerPath": "/service/target",
+          "hostPath": "/var/log/elk",
+          "mode": "RW"
+        }
+      ],
+      "portMappings": [
+        {
+          "containerPort": 0,
+          "hostPort": 0,
+          "labels": {},
+          "protocol": "tcp",
+          "servicePort": 10031
+        }
+      ]
+    },
+    "cpus": 0.2,
+    "disk": 0,
+    "env": {
+      "JAVA_OPTS": "",
+      "LOGGING_PATH": "target/simple-java-service-0.0.1.25-dev/2c1c1f04-1582-4699-9d39-3ad6e2af4057",
+      "SERVICE_PARAMS": "--eureka.uri=http://127.0.0.1:38761 --spring.cloud.config.uri=http://127.0.0.1:38888 --spring.cloud.config.label=dev --eureka.instance.leaseRenewalIntervalInSeconds=30 --eureka.instance.lease-expiration-duration-in-seconds=40 --health.config.enabled=false",
+      "ENV_LABEL": "dev",
+      "EUREKA_URL": "http://eureka-service-dev.marathon.mesos:38761",
+      "XMS_XMX_AUTODETECT": "1",
+      "CLOUD_CONFIG_URL": "http://127.0.0.1:38888"
+    },
+    "executor": "",
+    "fetch": [
+      {
+        "uri": "file:///etc/docker.tar.gz",
+        "extract": true,
+        "executable": false,
+        "cache": false
+      }
+    ],
+    "healthChecks": [
+      {
+        "gracePeriodSeconds": 300,
+        "ignoreHttp1xx": false,
+        "intervalSeconds": 20,
+        "maxConsecutiveFailures": 9,
+        "path": "/actuator/health",
+        "portIndex": 0,
+        "protocol": "HTTP",
+        "ipProtocol": "IPv4",
+        "timeoutSeconds": 15,
+        "delaySeconds": 15
+      }
+    ],
+    "instances": 1,
+    "labels": {
+      "environment": "dev"
+    },
+    "maxLaunchDelaySeconds": 3600,
+    "mem": 1024,
+    "gpus": 0,
+    "networks": [
+      {
+        "mode": "container/bridge"
+      }
+    ],
+    "requirePorts": false,
+    "upgradeStrategy": {
+      "maximumOverCapacity": 0,
+      "minimumHealthCapacity": 0
+    },
+    "version": "2019-10-28T02:28:37.873Z",
+    "versionInfo": {
+      "lastScalingAt": "2019-10-28T02:28:37.873Z",
+      "lastConfigChangeAt": "2019-10-28T02:28:37.873Z"
+    },
+    "killSelection": "YOUNGEST_FIRST",
+    "unreachableStrategy": {
+      "inactiveAfterSeconds": 0,
+      "expungeAfterSeconds": 0
+    },
+    "tasksStaged": 0,
+    "tasksRunning": 1,
+    "tasksHealthy": 1,
+    "tasksUnhealthy": 0,
+    "deployments": [],
+    "tasks": [
+      {
+        "appId": "/simple-java-service-dev",
+        "healthCheckResults": [
+          {
+            "alive": true,
+            "consecutiveFailures": 0,
+            "firstSuccess": "2019-11-20T13:32:03.545Z",
+            "instanceId": "instance [simple-java-service-dev.marathon-a98a814a-f92a-11e9-a5a0-02423e3e6966]",
+            "lastSuccess": "2019-11-20T22:02:49.357Z"
+          }
+        ],
+        "host": "192.168.84.55",
+        "id": "simple-java-service-dev.a98a814a-f92a-11e9-a5a0-02423e3e6966",
+        "ipAddresses": [
+          {
+            "ipAddress": "172.17.0.22",
+            "protocol": "IPv4"
+          }
+        ],
+        "ports": [
+          62712
+        ],
+        "servicePorts": [],
+        "slaveId": "787fd1ad-de77-419e-89de-a561a225dde6-S0",
+        "state": "TASK_RUNNING",
+        "stagedAt": "2019-10-28T02:28:43.989Z",
+        "startedAt": "2019-10-28T02:28:50.075Z",
+        "version": "2019-10-28T02:28:37.873Z",
+        "localVolumes": []
+      }
+    ]
+  }
+}
