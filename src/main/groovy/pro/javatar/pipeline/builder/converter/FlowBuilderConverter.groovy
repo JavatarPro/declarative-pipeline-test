@@ -19,8 +19,8 @@ import pro.javatar.pipeline.model.DockerOrchestrationServiceType
 import pro.javatar.pipeline.model.RevisionControlType
 import pro.javatar.pipeline.model.VcsRepositoryType
 import pro.javatar.pipeline.service.orchestration.DockerOrchestrationService
-import pro.javatar.pipeline.service.orchestration.MesosService
-import pro.javatar.pipeline.service.orchestration.NomadService
+import pro.javatar.pipeline.integration.marathon.MesosService
+import pro.javatar.pipeline.integration.nomad.NomadService
 import pro.javatar.pipeline.service.orchestration.model.NomadBO
 import pro.javatar.pipeline.service.vcs.model.VcsRepo
 import pro.javatar.pipeline.util.Logger

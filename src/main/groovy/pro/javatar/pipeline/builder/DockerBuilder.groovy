@@ -18,9 +18,9 @@ import com.cloudbees.groovy.cps.NonCPS
 import pro.javatar.pipeline.model.DockerOrchestrationServiceType
 import pro.javatar.pipeline.service.orchestration.DockerOrchestrationService
 import pro.javatar.pipeline.service.orchestration.DockerService
-import pro.javatar.pipeline.service.orchestration.KubernetesService
-import pro.javatar.pipeline.service.orchestration.MesosService
-import pro.javatar.pipeline.service.orchestration.NomadService
+import pro.javatar.pipeline.integration.k8s.KubernetesService
+import pro.javatar.pipeline.integration.marathon.MesosService
+import pro.javatar.pipeline.integration.nomad.NomadService
 import pro.javatar.pipeline.service.orchestration.SshDockerOrchestrationService
 import pro.javatar.pipeline.service.orchestration.model.DockerRegistryBO
 import pro.javatar.pipeline.util.Logger

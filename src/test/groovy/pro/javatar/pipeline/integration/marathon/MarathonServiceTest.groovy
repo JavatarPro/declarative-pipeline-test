@@ -39,10 +39,8 @@ class MarathonServiceTest extends Specification {
         PipelineDslHolder.dsl = new PipelineDslHolderMock();
         String jsonResponse = getResponseStub(MARATHON_GET_BY_ID_RESPONSE)
         when(dslService.getShellExecutionResponse(anyString())).thenReturn(jsonResponse);
-        Map<String, MarathonConfig> envConfigs = new HashMap<>();
         MarathonConfig config = mock(MarathonConfig.class);
-        envConfigs.put(ENV, config)
-        marathonService = new MarathonService(envConfigs, dslService);
+        marathonService = new MarathonService(config, dslService);
     }
 
     def "test version"() {
