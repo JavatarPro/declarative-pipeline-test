@@ -25,7 +25,7 @@ import pro.javatar.pipeline.service.orchestration.SshDockerOrchestrationService
 import pro.javatar.pipeline.service.orchestration.model.DockerRegistryBO
 import pro.javatar.pipeline.util.Logger
 
-import static pro.javatar.pipeline.model.DockerOrchestrationServiceType.KUBERNETES
+import static pro.javatar.pipeline.model.DockerOrchestrationServiceType.K8S
 import static pro.javatar.pipeline.model.DockerOrchestrationServiceType.MESOS
 import static pro.javatar.pipeline.model.DockerOrchestrationServiceType.NOMAD
 import static pro.javatar.pipeline.model.DockerOrchestrationServiceType.SSH
@@ -63,7 +63,7 @@ class DockerBuilder implements Serializable {
     // TODO make this method primary to create orchestrationService
     DockerBuilder withOrchestrationServiceType(String dockerOrchestrationServiceType) {
         DockerOrchestrationServiceType type = fromString(dockerOrchestrationServiceType)
-        if (type == KUBERNETES) {
+        if (type == K8S) {
             this.orchestrationService = new KubernetesService()
         } else if (type == MESOS) {
             this.orchestrationService = new MesosService()
