@@ -45,6 +45,11 @@ class JenkinsDslServiceMock implements JenkinsDslService {
     }
 
     @Override
+    String getShellExecutionResponse(String command, String defaultMessage) {
+        log.info("sh " + command + " || echo {}");
+    }
+
+    @Override
     void executeShell(String command) {
         log.info("sh " + command);
     }
