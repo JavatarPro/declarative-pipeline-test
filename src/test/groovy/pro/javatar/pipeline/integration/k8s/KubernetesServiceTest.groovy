@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019 Javatar LLC
+ * Copyright (c) 2021 Javatar LLC
  * All rights reserved.
  */
-package pro.javatar.pipeline.integration.marathon
+package pro.javatar.pipeline.integration.k8s
 
 import groovy.util.logging.Slf4j
 import pro.javatar.pipeline.jenkins.api.JenkinsDslService
@@ -10,53 +10,48 @@ import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.service.PipelineDslHolder
 import spock.lang.Shared
 import spock.lang.Specification
-
 import static org.mockito.ArgumentMatchers.anyString
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.when
 
 /**
  * @author Borys Zora
- * @version 2019-11-21
+ * @version 2021-01-10
  */
 @Slf4j
-class MarathonServiceTest extends Specification {
+class KubernetesServiceTest extends Specification {
 
-    static final String MARATHON_GET_BY_ID_RESPONSE = "marathon/marathon-get-application-info-by-id.json";
+    static final String K8S_DEPLOYMENT_STATUS_RESPONSE = "k8s/k8s-deployment-status.json";
 
-    static final String ENV = "dev";
-
-    static final String SERVICE_NAME = "simple-java-service-dev";
-
-    @Shared
-    MarathonService marathonService;
+    static final String SERVICE_NAME = "nginx-app-1";
 
     @Shared
     JenkinsDslService dslService = mock(JenkinsDslService.class);
 
+    @Shared
+    KubernetesService service;
+
     def setupSpec() throws Exception {
         log.info("setup mocks")
         PipelineDslHolder.dsl = new PipelineDslHolderMock();
-        String jsonResponse = getResponseStub(MARATHON_GET_BY_ID_RESPONSE)
+        String jsonResponse = getResponseStub(K8S_DEPLOYMENT_STATUS_RESPONSE)
         when(dslService.getShellExecutionResponse(anyString())).thenReturn(jsonResponse);
-        MarathonConfig config = mock(MarathonConfig.class);
-        marathonService = new MarathonService(config, dslService);
+        service = new KubernetesService(dslService);
     }
 
-    def "test version"() {
-        given: "marathon response by id"
+    def "IsDeploymentReady"() {
+        given: "k8s deployment status response"
 
-        when: "we get response from marathon"
-        String version = marathonService.getCurrentServiceVersion(ENV, SERVICE_NAME)
+        when: "we get deployment status response from k8s"
+        boolean status = service.isDeploymentReady(SERVICE_NAME)
 
         then: "expected version retrieved correctly"
 
         expect:
-        version == "0.0.1.25"
+        status
     }
 
     String getResponseStub(String file) {
         return new String(getClass().getClassLoader().getResourceAsStream(file).getBytes());
     }
-
 }

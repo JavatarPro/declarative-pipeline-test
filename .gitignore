@@ -25,4 +25,4 @@
 /.nb-gradle/
 
 # declarative-pipeline ignore
-src/main/groovy
+# src/main/groovy
