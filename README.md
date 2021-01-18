@@ -61,3 +61,7 @@
 - commit changes to ${DECLARATIVE_PIPELINE_TEST_HOME}
 - commit changes in ${DECLARATIVE_PIPELINE_HOME}
 - create pull request on both
+
+## TODO
+
+- additional for build version, we could use build number or commit hash to reload on orchestration tool

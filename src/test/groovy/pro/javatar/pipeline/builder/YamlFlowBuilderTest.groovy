@@ -26,6 +26,7 @@ import java.time.Duration
 class YamlFlowBuilderTest extends Specification {
 
     public static final String GRADLE_NOMAD_CONFIG_FILE = "continuous-delivery/nomad-gradle-declarative-pipeline.yml"
+    public static final String DOCKER_ONLY_CONFIG_FILE = "continuous-delivery/docker-only-pipeline.yml"
 
     @Shared
     JenkinsDslService dslService;
@@ -36,12 +37,25 @@ class YamlFlowBuilderTest extends Specification {
         dslService = new JenkinsDslServiceMock();
     }
 
-    def "flow configuration and execution for gradle with nomad"() {
-        YamlFlowBuilder builder = new YamlFlowBuilder(GRADLE_NOMAD_CONFIG_FILE, dslService);
-        given: "gradle configuration in " + GRADLE_NOMAD_CONFIG_FILE
+    def "flow configuration and docker execution with docker-only setup" () {
+        String configFile = DOCKER_ONLY_CONFIG_FILE
+        YamlFlowBuilder builder = new YamlFlowBuilder(configFile, dslService);
+        given: "docker only configuration in " + configFile
 
         when: "build flow is completed"
-        Config config = builder.getEffectiveConfig(GRADLE_NOMAD_CONFIG_FILE);
+        Config config = builder.getEffectiveConfig(configFile);
+        Flow flow = builder.build();
+
+        then: "expected configuration is correct"
+    }
+
+    def "flow configuration and execution for gradle with nomad"() {
+        String configFile = GRADLE_NOMAD_CONFIG_FILE
+        YamlFlowBuilder builder = new YamlFlowBuilder(configFile, dslService);
+        given: "gradle configuration in " + configFile
+
+        when: "build flow is completed"
+        Config config = builder.getEffectiveConfig(configFile);
         Flow flow = builder.build();
 
         then: "expected configuration is correct"

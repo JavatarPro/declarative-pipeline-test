@@ -1,0 +1,48 @@
+pipeline:
+  suit: service-simple
+
+service:
+  name: ${repo}
+  buildType: npm
+  useBuildNumberForVersion: false
+  vcs_repo: service
+  orchestration: k8s
+  versioning: npm
+  build:
+    - docker
+  release:
+    - vcs
+    - docker
+
+docker:
+  registries:
+    dev: dev-registry
+    prod: prod-registry
+
+docker-registries:
+  dev-registry:
+    credentialsId: bzo-nexus-docker-registry-cred
+    registry: docker-dev.javatar.com
+  prod-registry:
+    credentialsId: bzo-nexus-docker-registry-cred
+    registry: docker-prod.javatar.com
+
+vcs:
+  repo:
+    service:
+      name: ${repo}
+      owner: easy-en
+      credentialsId: javatar-jenkins-gitlab-ssh
+      domain: gitlab.javatar.com:1022
+      type: gitlab
+      revisionControl: git
+
+auto-test:
+  enabled: false
+
+log_level: TRACE
+
+npm:
+  type: nodejs
+  version: v12.16.2
+  distributionFolder: 'dist'
