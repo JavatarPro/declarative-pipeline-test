@@ -42,7 +42,12 @@ auto-test:
 
 log_level: TRACE
 
-npm:
-  type: nodejs
-  version: v12.16.2
-  distributionFolder: 'dist'
+jenkins_tool:
+  npm:
+    version: v12.16.2
+    type: nodejs
+
+#npm:
+#  type: nodejs
+#  version: v12.16.2
+#  distributionFolder: 'dist'
