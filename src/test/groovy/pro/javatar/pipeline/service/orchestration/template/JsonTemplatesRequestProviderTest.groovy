@@ -18,7 +18,7 @@ class JsonTemplatesRequestProviderTest extends Specification {
 
     def setupSpec() throws Exception {
         logger.info("setup mocks")
-        PipelineDslHolder.dsl = new PipelineDslHolderMock()
+        PipelineDslHolder.createDsl(new PipelineDslHolderMock())
     }
 
     void setup() {

@@ -8,6 +8,7 @@ import groovy.util.logging.Slf4j
 import pro.javatar.pipeline.mock.JenkinsDslServiceMock
 import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.model.ReleaseInfo
+import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.stage.BuildAndUnitTestStage
 import pro.javatar.pipeline.stage.StageAware
 import spock.lang.Ignore
@@ -28,8 +29,8 @@ class FlowTest extends Specification {
     Flow flow;
 
     void setup() {
-        dsl = new PipelineDslHolderMock();
-        flow = new Flow(new ReleaseInfo(), new JenkinsDslServiceMock());
+        PipelineDslHolder.createDsl(new PipelineDslHolderMock())
+        flow = new Flow(new ReleaseInfo(), new JenkinsDslServiceMock())
     }
 
     def "test addStage"() {

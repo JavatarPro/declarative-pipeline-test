@@ -33,7 +33,7 @@ class KubernetesServiceTest extends Specification {
 
     def setupSpec() throws Exception {
         log.info("setup mocks")
-        PipelineDslHolder.dsl = new PipelineDslHolderMock();
+        PipelineDslHolder.createDsl(new PipelineDslHolderMock())
         String jsonResponse = getResponseStub(K8S_DEPLOYMENT_STATUS_RESPONSE)
         when(dslService.getShellExecutionResponse(anyString())).thenReturn(jsonResponse);
         service = new KubernetesService(dslService);

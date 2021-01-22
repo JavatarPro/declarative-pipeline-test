@@ -74,4 +74,18 @@ class JenkinsDslServiceMock implements JenkinsDslService {
         log.info("timeout: {}, directory: {}", timeout, directory);
     }
 
+    @Override
+    def getEnv(String variable) {
+        return "null"
+    }
+
+    @Override
+    boolean fileExists(String file) {
+        return false
+    }
+
+    @Override
+    void echo(String message) {
+        log.info("echo " + message);
+    }
 }

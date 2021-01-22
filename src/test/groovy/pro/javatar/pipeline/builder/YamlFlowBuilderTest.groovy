@@ -33,7 +33,7 @@ class YamlFlowBuilderTest extends Specification {
 
     def setupSpec() throws Exception {
         log.info("setup mocks")
-        PipelineDslHolder.dsl = new PipelineDslHolderMock();
+        dslService = PipelineDslHolder.createDsl(new PipelineDslHolderMock())
         dslService = new JenkinsDslServiceMock();
     }
 
