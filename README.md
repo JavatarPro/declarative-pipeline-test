@@ -64,4 +64,14 @@
 
 ## TODO
 
-- additional for build version, we could use build number or commit hash to reload on orchestration tool
+- additional for build version, we could use build number or commit hash to reload on orchestration tool 
+  
+
+pro.javatar.pipeline.builder.model.AutoTest.getJobName by using pro.javatar.pipeline.builder.model.YamlConfig.toString
+    
+    pro.javatar.pipeline.model.ReleaseInfo.getDockerImageNames by using pro.javatar.pipeline.builder.FlowBuilder.toString
+    pro.javatar.pipeline.service.vcs.GitService.getUserName by using pro.javatar.pipeline.util.Logger.debug
+    pro.javatar.pipeline.builder.Npm.getNpmType by using pro.javatar.pipeline.service.impl.DockerNpmBuildService.<init>
+
+    hudson.remoting.ProxyException: CpsCallableInvocation{methodName=getNpmType, call=com.cloudbees.groovy.cps.impl.CpsFunction@72f20ef, receiver=Npm{npmVersion='null', npmType='nodejs', libraryFolder='node_modules', distributionFolder='dist'}, arguments=[]}
+    Finished: FAILURE
