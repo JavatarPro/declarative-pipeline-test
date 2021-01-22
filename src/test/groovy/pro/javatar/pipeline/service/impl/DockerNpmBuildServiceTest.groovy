@@ -26,7 +26,9 @@ class DockerNpmBuildServiceTest extends Specification {
 
     def "test BuildAndUnitTests"() {
         given: "DockerNpmBuildService"
-        DockerNpmBuildService service = new DockerNpmBuildService(dockerService, npm, jenkinsDslService)
+        DockerNpmBuildService service = new DockerNpmBuildService(dockerService, jenkinsDslService)
+        service.setType(npm.getType())
+        service.setNpmVersion(npm.npmVersion)
         service.buildAndUnitTests(new ReleaseInfo())
         assert 1 == 1
     }
