@@ -15,6 +15,7 @@ pipeline:
         - cmd-get-current-deployed-version
       fallbacks:
         - todo
+    - name: integration-test
     - name: auto-test
     - name: rollback-dev-env
     - name: dev-sign-off

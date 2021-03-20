@@ -1,0 +1,33 @@
+integrations:
+  - name: docker-registry-dev
+    description: docker registry for temporary artifacts (small retantion policy)
+    url: docker-dev.your-domain.com
+    enabled: false
+  - name: docker-registry-prod
+    description: docker registry for verified artifacts to be used in production
+    url: docker-prod.your-domain.com
+    enabled: false
+  - name: sonar
+    description: tool for static code analysis
+  - name: java
+    description: jdk to compile with javac, supported versions 8, 11, 13 .. 16+
+    version: 16
+    enabled: false
+  - name: maven
+    description: build tool for java
+    enabled: false
+  - name: npm
+    description: todo
+    version: 7.6.3
+    enabled: false
+  - name: marathon
+    description: apache mesos framework - service orchestration
+  - name: k8s
+    description: kubernetes - service orchestration
+    enabled: false
+  - name: aws-s3-dev
+    description: S3 bucket to store dev artifacts
+    enabled: false
+  - name: aws-s3-prod
+    description: S3 bucket to store prod artifacts
+    enabled: false

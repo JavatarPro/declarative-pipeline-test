@@ -14,19 +14,3 @@ services:
     release:
       - vcs
       - docker
-
-integrations:
-  - name: docker-registry-dev
-  - name: docker-registry-prod
-  - name: sonar
-  - name: java
-  - name: maven
-  - name: npm
-  - name: marathon
-    description: apache mesos framework - service orchestration
-  - name: k8s
-    description: kubernetes - service orchestration
-  - name: aws-s3-dev
-    description: AWS S3 service to store binarry data, your artifacts for dev/qa env (not yet verified)
-  - name: aws-s3-prod
-    description: AWS S3 service to store binarry data, your artifacts for prod env (verified and approved by qa and/or stakeholders by testing in UAT/staging env)
