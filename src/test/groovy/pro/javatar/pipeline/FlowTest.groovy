@@ -39,12 +39,12 @@ class FlowTest extends Specification {
         when: "add stage to flow and retrieve all stages"
         StageAware stage = new BuildAndUnitTestStage(null, null);
         flow.addStage(stage)
-        List<StageAware> stages = flow.getStages();
+        List<StageAware> stages = flow.getStageNames()
         then: "expected stage exists"
 
         expect:
         stages.size() == 1;
-        stages.get(0) == stage
+        stages.get(0) == stage.getName()
     }
 
     def "test execute"() {
