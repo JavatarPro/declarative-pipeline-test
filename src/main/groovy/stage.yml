@@ -5,6 +5,7 @@ pipeline:
       commands:
         - cmd-checkout-code-from-vcs
         - cmd-build-artifact-with-unit-tests
+        - cmd-publish-dev-artifacts
         - cmd-build-docker
         - cmd-push-docker-to-dev-registry
       fallbacks:
