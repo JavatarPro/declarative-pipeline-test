@@ -1,10 +1,19 @@
-# buildType will be discovered
-# - pom.xml -> maven
-# - build.gradle -> gradle
-# - default -> command: bash command provided (e.g. mvn clean install -Dmaven.test.skip)
 pipeline:
   suit: service-simple
-  service: ${repo}
+  service:
+    name: ${serviceName}
+    vcs_repo: vcs-target-repo
+    # orchestration on of: k8s, marathon, yarn, nomad
+    orchestration: ${orchestration}
+
+variables:
+  orchestration: k8s
+  # useBuildNumberForVersion: false
+  # buildType will be discovered
+  # - pom.xml -> maven
+  # - build.gradle -> gradle
+  # - default -> command: bash command provided (e.g. mvn clean install -Dmaven.test.skip)
+  # buildType: npm_docker
 
 services:
   - name: default

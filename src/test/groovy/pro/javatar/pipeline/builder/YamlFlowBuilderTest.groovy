@@ -39,7 +39,7 @@ class YamlFlowBuilderTest extends Specification {
 
     def "flow configuration and docker execution with docker-only setup" () {
         String configFile = DOCKER_ONLY_CONFIG_FILE
-        YamlFlowBuilder builder = new YamlFlowBuilder(configFile, dslService);
+        YamlFlowBuilder builder = new YamlFlowBuilder(dslService, configFile);
         given: "docker only configuration in " + configFile
 
         when: "build flow is completed"
@@ -51,7 +51,7 @@ class YamlFlowBuilderTest extends Specification {
 
     def "flow configuration and execution for gradle with nomad"() {
         String configFile = GRADLE_NOMAD_CONFIG_FILE
-        YamlFlowBuilder builder = new YamlFlowBuilder(configFile, dslService);
+        YamlFlowBuilder builder = new YamlFlowBuilder(dslService, configFile);
         given: "gradle configuration in " + configFile
 
         when: "build flow is completed"
@@ -79,4 +79,15 @@ class YamlFlowBuilderTest extends Specification {
         autoTestConfig.jobName() == "system-tests"
     }
 
+    def "build with new type of config"() {
+        List<String> configs = ["config/pipeline.yml", "config/infra.yml"]
+        YamlFlowBuilder builder = new YamlFlowBuilder(dslService, configs)
+        given: "multiple configurations"
+
+        when: "build flow is completed"
+        Config config = builder.getEffectiveConfig2(configs)
+//        Flow flow = builder.build2()
+
+        then: "expected configuration is correct"
+    }
 }
