@@ -89,13 +89,14 @@ class DockerService implements Serializable {
         dsl.sh "docker build -t ${imageName}:${imageVersion} ${getCustomDockerFileInstruction()} ."
         Logger.debug("dockerBuildImage for service: ${imageName} with releaseVersion: ${imageVersion} finished")
     }
-    
+
     def dockerBuildImageWithContextOptimizationForUI(ReleaseInfo releaseInfo) {
         Logger.debug("dockerBuildImageWithContextOptimizationForUI started")
-        dsl.sh "cd ${releaseInfo.getBuildDockerFromFolder()}"
-        dsl.sh "mv ../${releaseInfo.getUiDistributionFolder()} ."
-        dockerBuildImage(releaseInfo.getDockerImageName(), releaseInfo.getDockerImageVersion())
-        dsl.sh "cd .."
+        dsl.sh "mv ${releaseInfo.getUiDistributionFolder()} ${releaseInfo.getBuildDockerFromFolder()}"
+        dsl.dir (releaseInfo.getBuildDockerFromFolder()) {
+            dsl.sh "pwd && ls -la && ls -la .."
+            dockerBuildImage(releaseInfo.getDockerImageName(), releaseInfo.getDockerImageVersion())
+        }
         Logger.debug("dockerBuildImageWithContextOptimizationForUI finished")
     }
 
