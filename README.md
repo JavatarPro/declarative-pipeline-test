@@ -75,3 +75,5 @@ pro.javatar.pipeline.builder.model.AutoTest.getJobName by using pro.javatar.pipe
 
     hudson.remoting.ProxyException: CpsCallableInvocation{methodName=getNpmType, call=com.cloudbees.groovy.cps.impl.CpsFunction@72f20ef, receiver=Npm{npmVersion='null', npmType='nodejs', libraryFolder='node_modules', distributionFolder='dist'}, arguments=[]}
     Finished: FAILURE
+
+k get deploy org-structure -o json > org-structure.json

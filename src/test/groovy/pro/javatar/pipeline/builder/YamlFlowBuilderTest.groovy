@@ -38,24 +38,24 @@ class YamlFlowBuilderTest extends Specification {
     }
 
     def "flow configuration and docker execution with docker-only setup" () {
-        String configFile = DOCKER_ONLY_CONFIG_FILE
-        YamlFlowBuilder builder = new YamlFlowBuilder(dslService, configFile);
-        given: "docker only configuration in " + configFile
+        List<String> configFiles = [DOCKER_ONLY_CONFIG_FILE]
+        YamlFlowBuilder builder = new YamlFlowBuilder(dslService, configFiles)
+        given: "docker only configuration in " + configFiles
 
         when: "build flow is completed"
-        Config config = builder.getEffectiveConfig(configFile);
+        Config config = builder.getEffectiveConfig(configFiles.get(0));
         Flow flow = builder.build();
 
         then: "expected configuration is correct"
     }
 
     def "flow configuration and execution for gradle with nomad"() {
-        String configFile = GRADLE_NOMAD_CONFIG_FILE
-        YamlFlowBuilder builder = new YamlFlowBuilder(dslService, configFile);
-        given: "gradle configuration in " + configFile
+        List<String> configFiles = [GRADLE_NOMAD_CONFIG_FILE]
+        YamlFlowBuilder builder = new YamlFlowBuilder(dslService, configFiles);
+        given: "gradle configuration in " + configFiles
 
         when: "build flow is completed"
-        Config config = builder.getEffectiveConfig(configFile);
+        Config config = builder.getEffectiveConfig(configFiles.get(0));
         Flow flow = builder.build();
 
         then: "expected configuration is correct"
