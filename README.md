@@ -50,8 +50,7 @@
     
 ### commit code after successful debug
 
-    rm -rf ${DECLARATIVE_PIPELINE_HOME}/src/
-    cp -r ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy/ ${DECLARATIVE_PIPELINE_HOME}/src/
+    rm -rf ${DECLARATIVE_PIPELINE_HOME}/src/ && cp -r ${DECLARATIVE_PIPELINE_TEST_HOME}/src/main/groovy/ ${DECLARATIVE_PIPELINE_HOME}/src/
     # commit & push 
     # src/main/groovy already ignored in .gitignore and should not be pushed
 
