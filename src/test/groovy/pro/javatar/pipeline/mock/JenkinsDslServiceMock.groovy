@@ -88,4 +88,9 @@ class JenkinsDslServiceMock implements JenkinsDslService {
     void echo(String message) {
         log.info("echo " + message);
     }
+
+    @Override
+    void writeFile(String path, String content) {
+
+    }
 }
