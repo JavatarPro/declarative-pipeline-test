@@ -1,0 +1,34 @@
+variables:
+  useBuildNumberForVersion: false
+  orchestration: k8s
+  buildType: npm_docker
+
+integrations:
+  - name: docker-registry-dev
+    url: docker-dev.javatar.com
+    credentialsId: bzo-nexus-docker-registry-cred
+    labels:
+      - docker-registry
+  - name: docker-registry-prod
+    url: docker-prod.javatar.com
+    credentialsId: bzo-nexus-docker-registry-cred
+    labels:
+      - docker-registry
+  - name: vcs-target-repo
+    repoName: ${repo}
+    owner: common
+    domain: gitlab.javatar.pro:22
+    type: gitlab
+    # TODO could be used in this way, just to specify all in url
+    url: ssh://git@gitlab.work.javatar.pro:22/${owner}/${repo}.git
+    credentialsId: javatar-jenkins-gitlab-ssh
+    revisionControl: git
+  - name: nodejs
+
+jenkins_tool:
+  npm:
+    version: v15.6.0
+    type: nodejs
+
+log_level: DEBUG
+

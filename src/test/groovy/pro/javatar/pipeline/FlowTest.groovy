@@ -8,6 +8,7 @@ import groovy.util.logging.Slf4j
 import pro.javatar.pipeline.mock.JenkinsDslServiceMock
 import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.model.ReleaseInfo
+import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.stage.BuildAndUnitTestStage
 import pro.javatar.pipeline.stage.StageAware
 import spock.lang.Ignore
@@ -28,8 +29,8 @@ class FlowTest extends Specification {
     Flow flow;
 
     void setup() {
-        dsl = new PipelineDslHolderMock();
-        flow = new Flow(new ReleaseInfo(), new JenkinsDslServiceMock());
+        PipelineDslHolder.createDsl(new PipelineDslHolderMock())
+        flow = new Flow(new ReleaseInfo(), new JenkinsDslServiceMock())
     }
 
     def "test addStage"() {
@@ -38,12 +39,12 @@ class FlowTest extends Specification {
         when: "add stage to flow and retrieve all stages"
         StageAware stage = new BuildAndUnitTestStage(null, null);
         flow.addStage(stage)
-        List<StageAware> stages = flow.getStages();
+        List<StageAware> stages = flow.getStageNames()
         then: "expected stage exists"
 
         expect:
         stages.size() == 1;
-        stages.get(0) == stage
+        stages.get(0) == stage.getName()
     }
 
     def "test execute"() {

@@ -1,0 +1,4 @@
+pipeline:
+  suit: service-simple
+  service: ${repo}
+

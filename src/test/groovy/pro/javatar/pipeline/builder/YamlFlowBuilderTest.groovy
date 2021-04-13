@@ -26,22 +26,36 @@ import java.time.Duration
 class YamlFlowBuilderTest extends Specification {
 
     public static final String GRADLE_NOMAD_CONFIG_FILE = "continuous-delivery/nomad-gradle-declarative-pipeline.yml"
+    public static final String DOCKER_ONLY_CONFIG_FILE = "continuous-delivery/docker-only-pipeline.yml"
 
     @Shared
     JenkinsDslService dslService;
 
     def setupSpec() throws Exception {
         log.info("setup mocks")
-        PipelineDslHolder.dsl = new PipelineDslHolderMock();
+        dslService = PipelineDslHolder.createDsl(new PipelineDslHolderMock())
         dslService = new JenkinsDslServiceMock();
     }
 
-    def "flow configuration and execution for gradle with nomad"() {
-        YamlFlowBuilder builder = new YamlFlowBuilder(GRADLE_NOMAD_CONFIG_FILE, dslService);
-        given: "gradle configuration in " + GRADLE_NOMAD_CONFIG_FILE
+    def "flow configuration and docker execution with docker-only setup" () {
+        List<String> configFiles = [DOCKER_ONLY_CONFIG_FILE]
+        YamlFlowBuilder builder = new YamlFlowBuilder(dslService, configFiles)
+        given: "docker only configuration in " + configFiles
 
         when: "build flow is completed"
-        Config config = builder.getEffectiveConfig(GRADLE_NOMAD_CONFIG_FILE);
+        Config config = builder.getEffectiveConfig(configFiles.get(0));
+        Flow flow = builder.build();
+
+        then: "expected configuration is correct"
+    }
+
+    def "flow configuration and execution for gradle with nomad"() {
+        List<String> configFiles = [GRADLE_NOMAD_CONFIG_FILE]
+        YamlFlowBuilder builder = new YamlFlowBuilder(dslService, configFiles);
+        given: "gradle configuration in " + configFiles
+
+        when: "build flow is completed"
+        Config config = builder.getEffectiveConfig(configFiles.get(0));
         Flow flow = builder.build();
 
         then: "expected configuration is correct"
@@ -65,4 +79,15 @@ class YamlFlowBuilderTest extends Specification {
         autoTestConfig.jobName() == "system-tests"
     }
 
+    def "build with new type of config"() {
+        List<String> configs = ["config/pipeline.yml", "config/infra.yml"]
+        YamlFlowBuilder builder = new YamlFlowBuilder(dslService, configs)
+        given: "multiple configurations"
+
+        when: "build flow is completed"
+        Config config = builder.getEffectiveConfig2(configs)
+//        Flow flow = builder.build2()
+
+        then: "expected configuration is correct"
+    }
 }
