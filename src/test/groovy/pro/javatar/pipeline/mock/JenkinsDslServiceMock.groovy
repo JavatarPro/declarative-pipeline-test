@@ -93,4 +93,9 @@ class JenkinsDslServiceMock implements JenkinsDslService {
     void writeFile(String path, String content) {
 
     }
+
+    @Override
+    String buildNumber() {
+        return "18"
+    }
 }
