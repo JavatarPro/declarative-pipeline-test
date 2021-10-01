@@ -22,7 +22,6 @@ import pro.javatar.pipeline.model.VcsRepositoryType
 import pro.javatar.pipeline.release.ReleaseType
 import pro.javatar.pipeline.release.ReleaseUploadArtifactType
 import pro.javatar.pipeline.service.orchestration.DockerOrchestrationService
-import pro.javatar.pipeline.integration.marathon.MesosService
 import pro.javatar.pipeline.integration.nomad.NomadService
 import pro.javatar.pipeline.service.orchestration.model.NomadBO
 import pro.javatar.pipeline.service.vcs.model.VcsRepo
@@ -119,20 +118,6 @@ class FlowBuilderConverter {
         if (orchestrationServiceType == DockerOrchestrationServiceType.K8S) {
             return toK8sService(yamlFile, dslService)
         }
-    }
-
-    MesosService toMesosService(YamlConfig yamlFile) {
-        Logger.info("FlowBuilderConverter: toMesosService: started")
-        Mesos mesos = yamlFile.getMesos()
-        if (mesos == null) {
-            return null
-        }
-        MesosService mesosService = new MesosService()
-        Map<String, VcsRepo> vcsRepoMap = toVcsRepoMap(mesos.getVcsConfigRepos())
-        mesosService.setVcsRepoMap(vcsRepoMap)
-        yamlFile.getMesos()
-        Logger.info("FlowBuilderConverter: toMesosService: finished")
-        return mesosService
     }
 
     NomadService toNomadService(YamlConfig yamlFile) {

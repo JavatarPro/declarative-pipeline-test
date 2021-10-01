@@ -17,7 +17,6 @@ package pro.javatar.pipeline.service.vcs
 
 import pro.javatar.pipeline.exception.ReleaseFinishException
 import pro.javatar.pipeline.model.ReleaseInfo
-import pro.javatar.pipeline.service.vcs.model.VcsRepo
 import pro.javatar.pipeline.service.vcs.model.VscCheckoutRequest
 import pro.javatar.pipeline.util.Logger
 
@@ -72,8 +71,6 @@ abstract class RevisionControlService implements Serializable {
     abstract def setUpVcsFlowPreparations()
 
     abstract def checkout(String branch)
-
-    abstract def checkoutRepo(String repoOwner, String repo, String branch)
 
     abstract def checkoutRepo(String repoUrl, String branch)
 

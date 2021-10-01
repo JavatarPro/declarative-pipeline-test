@@ -76,3 +76,16 @@ pro.javatar.pipeline.builder.model.AutoTest.getJobName by using pro.javatar.pipe
     Finished: FAILURE
 
 k get deploy org-structure -o json > org-structure.json
+
+Contract
+```groovy
+@Library('javatar-declarative-pipeline@1.4')
+import pro.javatar.pipeline.Flow
+
+node("pipeline-jl-k8s") {
+
+    Flow.of(this).execute()
+
+}
+```
+

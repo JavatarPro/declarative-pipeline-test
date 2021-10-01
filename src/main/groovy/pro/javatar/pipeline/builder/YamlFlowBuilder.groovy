@@ -100,4 +100,9 @@ class YamlFlowBuilder implements Serializable {
     String readConfiguration(String file) {
         return new String(getClass().getClassLoader().getResourceAsStream(file).bytes);
     }
+
+    protected Flow build3() {
+        YamlConfig config = getEffectiveConfig2(configFiles)
+        return null
+    }
 }

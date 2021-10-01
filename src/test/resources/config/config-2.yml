@@ -1,0 +1,33 @@
+pipeline:
+  suit: library
+  service: ${repo}
+  build: maven
+  orchestration: k8s
+
+vcs:
+  url: https://gitlab.javatar.com/${repo_owner}/${repo}.git
+  cred: gitlab-jenkins-user-cred
+
+docker:
+ - name: dev
+   cred: jenkins-docker-dev-k8s-nexus-cred
+   url: docker-dev.javatar.com
+ - name: prod
+   cred: jenkins-docker-prod-k8s-nexus-cred
+   url: docker-prod.javatar.com
+
+log_level: DEBUG
+
+sonar:
+  enabled: false
+
+maven:
+  params:
+  repository:
+    id: nexus
+    url: https://nexus.javatar.com/repository/common-libraries/
+
+jenkins_tool:
+  maven: maven_354
+  java: JDK16
+

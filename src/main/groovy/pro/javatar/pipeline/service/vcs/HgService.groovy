@@ -34,7 +34,7 @@ class HgService extends RevisionControlService {
     String credentialsId
     String repo
     String repoOwner
-    String username = "bzo"
+    String username
     String flowPrefix = ""
     HgFlowService hgFlowService
 
@@ -70,12 +70,6 @@ class HgService extends RevisionControlService {
         switchToBranch(branch)
         dsl.sh "pwd; ls -la"
         Logger.info("mercurial finish checkout branch: ${branch}")
-    }
-
-    @Override
-    def checkoutRepo(String repoOwner, String repo, String branch) {
-        String repoUrl = urlResolver.getRepoUrl(repoOwner, repo)
-        return checkoutRepo(repoUrl, branch)
     }
 
     @Override

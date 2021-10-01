@@ -47,6 +47,10 @@ class Flow implements Serializable {
         return new YamlFlowBuilder(dsl, config).build()
     }
 
+    public static Flow ofConfigV3(def dsl, String config) {
+        return new YamlFlowBuilder(dsl, config).build2()
+    }
+
     Flow addStage(StageAware stage) {
         stages.add(stage);
         return this;

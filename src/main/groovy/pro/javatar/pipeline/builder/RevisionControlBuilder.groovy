@@ -16,6 +16,7 @@
 package pro.javatar.pipeline.builder
 
 import pro.javatar.pipeline.model.RevisionControlType
+import pro.javatar.pipeline.model.Vcs
 import pro.javatar.pipeline.model.VcsRepositoryType
 import pro.javatar.pipeline.service.vcs.HgService
 import pro.javatar.pipeline.service.vcs.GitService
@@ -29,22 +30,12 @@ import pro.javatar.pipeline.util.Logger
  */
 class RevisionControlBuilder implements Serializable {
 
-    String branch
-    String repo
-    String repoOwner
-    String flowPrefix
-    String credentialsId
-    String domain
-    RevisionControlType type
-    VcsRepositoryType vcsRepositoryType
-
-    RevisionControlBuilder() {
-        Logger.debug("RevisionControlBuilder:default constructor")
-    }
-
-    RevisionControlService build() {
+    RevisionControlService build(Vcs vcs) {
         Logger.info("RevisionControlService.build() started")
         RevisionControlService result
+        if (vcs.getUrl().endsWith(".git")) {
+            new GitService(repo, credentialsId, repoOwner, flowPrefix)
+        }
         if (type == RevisionControlType.MERCURIAL) {
             result = new HgService(repo, credentialsId, repoOwner, flowPrefix)
         } else if (type == RevisionControlType.GIT) {
@@ -55,53 +46,4 @@ class RevisionControlBuilder implements Serializable {
         Logger.info("RevisionControlService.build() finished")
         return result
     }
-
-    RevisionControlBuilder withRepo(String repo) {
-        this.repo = repo
-        return this
-    }
-
-    // TODO refactor if used appropriate type use its domain (e.g. github)
-    RevisionControlBuilder withDomain(String domain) {
-        this.domain = domain
-        return this
-    }
-
-    RevisionControlBuilder withRepoOwner(String repoOwner) {
-        this.repoOwner = repoOwner
-        return this
-    }
-
-    RevisionControlBuilder withFlowPrefix(String flowPrefix) {
-        this.flowPrefix = flowPrefix
-        return this
-    }
-
-    RevisionControlBuilder withRevisionControlType(String type) {
-        this.type = RevisionControlType.fromString(type)
-        return this
-    }
-
-    RevisionControlBuilder withCredentialsId(String credentialsId) {
-        this.credentialsId = credentialsId
-        return this
-    }
-
-    RevisionControlBuilder withBranch(String branch) {
-        this.branch = branch
-        return this
-    }
-
-    RevisionControlBuilder withVcsRepositoryType(String vcsRepositoryType) {
-        this.vcsRepositoryType = VcsRepositoryType.fromString(vcsRepositoryType)
-        return this
-    }
-
-    String getPrefixedDevelopBranch() {
-        if (flowPrefix != null) {
-            return "${flowPrefix}-${branch}"
-        }
-        return branch
-    }
-
 }
