@@ -23,7 +23,6 @@ import pro.javatar.pipeline.exception.UnrecognizedRevisionControlTypeException
  */
 enum DockerOrchestrationServiceType implements Serializable {
 
-    MESOS,
     NOMAD,
     K8S,
     SSH
@@ -31,10 +30,6 @@ enum DockerOrchestrationServiceType implements Serializable {
     static DockerOrchestrationServiceType fromString(String type) {
         if (type == null) {
             throw new UnrecognizedRevisionControlTypeException("type is null")
-        }
-        if("mesos".equalsIgnoreCase(type) || "mesosphere".equalsIgnoreCase(type)
-                || "marathon".equalsIgnoreCase(type)) {
-            return MESOS
         }
         if("nomad".equalsIgnoreCase(type) || "HashiCorp".equalsIgnoreCase(type)) {
             return NOMAD
