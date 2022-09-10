@@ -17,7 +17,7 @@ package pro.javatar.pipeline
 
 import pro.javatar.pipeline.init.FlowBuilder
 import pro.javatar.pipeline.model.ReleaseInfo
-import pro.javatar.pipeline.jenkins.api.JenkinsDslService
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.stage.StageAware;
 import pro.javatar.pipeline.util.Logger
 
@@ -31,9 +31,9 @@ class Flow implements Serializable {
 
     private List<StageAware> stages = new ArrayList<>();
     private ReleaseInfo releaseInfo = new ReleaseInfo();
-    private JenkinsDslService dsl;
+    private JenkinsDsl dsl;
 
-    Flow(ReleaseInfo releaseInfo, JenkinsDslService dsl) {
+    Flow(ReleaseInfo releaseInfo, JenkinsDsl dsl) {
         this.releaseInfo = releaseInfo;
         this.dsl = dsl;
     }
@@ -43,12 +43,7 @@ class Flow implements Serializable {
     }
 
     static Flow of(def dsl, String config) {
-        return new FlowBuilder(dsl, config).build()
-    }
-
-    Flow addStage(StageAware stage) {
-        stages.add(stage);
-        return this;
+        return FlowBuilder.build(dsl, config)
     }
 
     void execute() {
@@ -68,6 +63,16 @@ class Flow implements Serializable {
             return;
         }
         dsl.executeStage(stage);
+    }
+
+    Flow addStage(StageAware stage) {
+        stages.add(stage);
+        return this;
+    }
+
+    Flow addStages(List<StageAware> stages) {
+        stages.addAll(stages);
+        return this;
     }
 
     List<String> getStageNames() {

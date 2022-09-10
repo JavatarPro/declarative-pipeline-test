@@ -15,7 +15,7 @@ import pro.javatar.pipeline.domain.Pipeline
 import pro.javatar.pipeline.domain.ReleaseType
 import pro.javatar.pipeline.domain.Vcs
 import pro.javatar.pipeline.domain.VersionConfig
-import pro.javatar.pipeline.jenkins.api.JenkinsDslService
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.model.DockerOrchestrationServiceType
 import pro.javatar.pipeline.model.PipelineStagesSuit
 import pro.javatar.pipeline.util.LogLevel
@@ -30,7 +30,7 @@ class ConfigYamlConverter {
 
     static Config toConfig(String yaml,
                            Map binding,
-                           JenkinsDslService dsl) {
+                           JenkinsDsl dsl) {
         String filledYaml = replaceVariables(yaml, binding)
         return toConfig(dsl.readYaml(filledYaml))
     }

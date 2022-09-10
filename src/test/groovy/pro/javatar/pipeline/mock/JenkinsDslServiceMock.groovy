@@ -6,7 +6,7 @@ package pro.javatar.pipeline.mock
 
 import groovy.util.logging.Slf4j
 import org.yaml.snakeyaml.Yaml;
-import pro.javatar.pipeline.jenkins.api.JenkinsDslService
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.jenkins.api.JenkinsExecutor
 import pro.javatar.pipeline.stage.StageAware
 
@@ -17,7 +17,7 @@ import java.time.Duration
  * @version 2019-11-03
  */
 @Slf4j
-class JenkinsDslServiceMock implements JenkinsDslService {
+class JenkinsDslServiceMock implements JenkinsDsl {
 
     @Override
     void executeStage(StageAware stage) {

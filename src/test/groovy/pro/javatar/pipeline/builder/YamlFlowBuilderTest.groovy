@@ -9,12 +9,11 @@ import pro.javatar.pipeline.Flow
 import pro.javatar.pipeline.config.AutoTestConfig
 import pro.javatar.pipeline.config.Config
 import pro.javatar.pipeline.config.GradleConfig
-import pro.javatar.pipeline.jenkins.api.JenkinsDslService
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.mock.JenkinsDslServiceMock
 import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.service.PipelineDslHolder
 import spock.lang.Shared
-import spock.lang.Specification
 
 import java.time.Duration
 
@@ -29,7 +28,7 @@ class YamlFlowBuilderTest /*extends Specification*/ {
     public static final String DOCKER_ONLY_CONFIG_FILE = "continuous-delivery/docker-only-pipeline.yml"
 
     @Shared
-    JenkinsDslService dslService;
+    JenkinsDsl dslService;
 
     def setupSpec() throws Exception {
         log.info("setup mocks")

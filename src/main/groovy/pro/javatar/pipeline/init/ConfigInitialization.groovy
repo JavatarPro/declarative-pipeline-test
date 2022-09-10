@@ -5,7 +5,7 @@
 package pro.javatar.pipeline.init
 
 import pro.javatar.pipeline.domain.Config
-import pro.javatar.pipeline.jenkins.api.JenkinsDslService
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 
 /**
  * @author Borys Zora
@@ -13,7 +13,7 @@ import pro.javatar.pipeline.jenkins.api.JenkinsDslService
  */
 class ConfigInitialization {
 
-    static Config createEffectiveConfig(JenkinsDslService dsl,
+    static Config createEffectiveConfig(JenkinsDsl dsl,
                                         List<String> configFiles) {
         Map bindings = dsl.getJenkinsJobParameters()
         Config result = new Config()

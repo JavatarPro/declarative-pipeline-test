@@ -9,7 +9,7 @@ import pro.javatar.pipeline.domain.BuildType
 import pro.javatar.pipeline.domain.CommandType
 import pro.javatar.pipeline.domain.Config
 import pro.javatar.pipeline.domain.ReleaseType
-import pro.javatar.pipeline.jenkins.api.JenkinsDslService
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.mock.JenkinsDslServiceMock
 import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.model.DockerOrchestrationServiceType
@@ -30,7 +30,7 @@ class ConfigYamlConverterTest extends Specification {
     public static final String K8S_PIPELINE_CONFIG_FILE = "init/k8s-pipeline.yml"
 
     @Shared
-    JenkinsDslService dsl;
+    JenkinsDsl dsl;
 
     def setupSpec() throws Exception {
         logger.info("setup mocks")

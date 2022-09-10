@@ -6,7 +6,7 @@ package pro.javatar.pipeline.integration.slack
 
 import com.cloudbees.groovy.cps.NonCPS
 import pro.javatar.pipeline.domain.Slack
-import pro.javatar.pipeline.jenkins.api.JenkinsDslService
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.util.Logger
 import pro.javatar.pipeline.util.RestClient
 
@@ -17,10 +17,10 @@ import pro.javatar.pipeline.util.RestClient
 class SlackChannelSender implements Serializable {
 
     Slack slack
-    JenkinsDslService dsl
+    JenkinsDsl dsl
 
     SlackChannelSender(Slack slack,
-                       JenkinsDslService dsl) {
+                       JenkinsDsl dsl) {
         this.slack = slack
         this.dsl = dsl
     }

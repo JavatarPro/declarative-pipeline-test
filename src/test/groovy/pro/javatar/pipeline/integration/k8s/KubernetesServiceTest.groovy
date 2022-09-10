@@ -5,7 +5,7 @@
 package pro.javatar.pipeline.integration.k8s
 
 import groovy.util.logging.Slf4j
-import pro.javatar.pipeline.jenkins.api.JenkinsDslService
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.service.PipelineDslHolder
 import spock.lang.Shared
@@ -26,7 +26,7 @@ class KubernetesServiceTest extends Specification {
     static final String SERVICE_NAME = "nginx-app-1";
 
     @Shared
-    JenkinsDslService dslService = mock(JenkinsDslService.class);
+    JenkinsDsl dslService = mock(JenkinsDsl.class);
 
     @Shared
     KubernetesService service;

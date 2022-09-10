@@ -5,7 +5,7 @@ import pro.javatar.pipeline.builder.converter.FlowBuilderConverter
 import pro.javatar.pipeline.builder.converter.JenkinsBuildParamsConverter
 import pro.javatar.pipeline.builder.converter.YamlConverter
 import pro.javatar.pipeline.builder.model.YamlConfig
-import pro.javatar.pipeline.jenkins.api.JenkinsDslService
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.util.Logger
 
 import static pro.javatar.pipeline.util.StringUtils.replaceVariables
@@ -23,7 +23,7 @@ class YamlFlowBuilder implements Serializable {
 
     private List<String> configFiles
 
-    private JenkinsDslService dslService;
+    private JenkinsDsl dslService;
 
     private YamlConverter yamlConverter = new YamlConverter()
 
@@ -39,7 +39,7 @@ class YamlFlowBuilder implements Serializable {
         this(PipelineDslHolder.createDsl(dsl), configFiles)
     }
 
-    protected YamlFlowBuilder(JenkinsDslService jenkinsDslService, List<String> configFiles) {
+    protected YamlFlowBuilder(JenkinsDsl jenkinsDslService, List<String> configFiles) {
         dslService = jenkinsDslService;
         this.configFiles = configFiles;
         Logger.debug("YamlFlowBuilder#constructor: configFiles: " + configFiles)

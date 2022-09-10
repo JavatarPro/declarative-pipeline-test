@@ -7,7 +7,7 @@ package pro.javatar.pipeline.service.impl
 import groovy.util.logging.Slf4j
 import org.mockito.Mockito
 import pro.javatar.pipeline.builder.Npm
-import pro.javatar.pipeline.jenkins.api.JenkinsDslService
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.mock.JenkinsDslServiceMock
 import pro.javatar.pipeline.model.ReleaseInfo
 import pro.javatar.pipeline.service.orchestration.DockerService
@@ -22,7 +22,7 @@ class DockerNpmBuildServiceTest extends Specification {
 
     DockerService dockerService = Mockito.mock(DockerService.class)
     Npm npm = Mockito.mock(Npm.class)
-    JenkinsDslService jenkinsDslService = new JenkinsDslServiceMock()
+    JenkinsDsl jenkinsDslService = new JenkinsDslServiceMock()
 
     def "test BuildAndUnitTests"() {
         given: "DockerNpmBuildService"
