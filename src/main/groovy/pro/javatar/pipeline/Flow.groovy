@@ -39,15 +39,15 @@ class Flow implements Serializable {
         this.jenkinsDslService = jenkinsDslService;
     }
 
-    public static Flow of(def dsl) {
+    static Flow of(def dsl) {
         return of(dsl, DEFAULT_CONFIG_FILE)
     }
 
-    public static Flow of(def dsl, String config) {
+    static Flow of(def dsl, String config) {
         return new YamlFlowBuilder(dsl, config).build()
     }
 
-    public static Flow ofConfigV3(def dsl, String config) {
+    static Flow ofConfigV3(def dsl, String config) {
         return new YamlFlowBuilder(dsl, config).build2()
     }
 

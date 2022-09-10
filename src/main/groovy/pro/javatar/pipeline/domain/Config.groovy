@@ -9,6 +9,7 @@ import pro.javatar.pipeline.model.DockerOrchestrationServiceType
 import pro.javatar.pipeline.model.PipelineStagesSuit
 import pro.javatar.pipeline.release.ReleaseType
 import pro.javatar.pipeline.util.LogLevel
+import pro.javatar.pipeline.util.RestClient
 
 /**
  * @author Borys Zora
@@ -61,4 +62,9 @@ class Command implements Serializable {
     String name
     String file
     String params
+}
+
+class Slack implements Serializable {
+    boolean enabled
+    String webhookUrl
 }

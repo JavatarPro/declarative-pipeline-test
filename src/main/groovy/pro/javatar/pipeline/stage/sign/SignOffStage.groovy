@@ -15,10 +15,8 @@
 
 package pro.javatar.pipeline.stage.sign
 
-import com.cloudbees.groovy.cps.NonCPS
 import pro.javatar.pipeline.exception.PipelineException
 import pro.javatar.pipeline.model.ReleaseApprovalStatus
-import pro.javatar.pipeline.service.SlackService
 import pro.javatar.pipeline.stage.Stage
 import pro.javatar.pipeline.util.Logger
 
@@ -29,8 +27,6 @@ import static pro.javatar.pipeline.service.PipelineDslHolder.dsl
  * @since 2018-03-09
  */
 abstract class SignOffStage extends Stage {
-
-    protected SlackService slackService
 
     @Override
     void execute() throws PipelineException {
@@ -77,11 +73,4 @@ abstract class SignOffStage extends Stage {
         return "${getApprovePersonType()} sign off"
     }
 
-    @NonCPS
-    @Override
-    public String toString() {
-        return "DeveloperSignOffStage{" +
-                "slackService=" + slackService +
-                '}';
-    }
 }

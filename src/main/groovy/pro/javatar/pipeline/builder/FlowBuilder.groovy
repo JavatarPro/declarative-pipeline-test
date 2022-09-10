@@ -62,7 +62,6 @@ class FlowBuilder implements Serializable {
     List<StageType> stageTypes = new ArrayList<>()
     Map<StageType, Stage> availableStages = new HashMap<>()
     Set<StageType> stageTypesToBeSkipped = new HashSet<>()
-    SlackBuilder slackBuilder // TODO
     DockerBuilder dockerBuilder // TODO
     SonarQubeBuilder sonarQubeBuilder // TODO
     SwaggerBuilder swaggerBuilder // TODO
@@ -90,7 +89,6 @@ class FlowBuilder implements Serializable {
     RevisionControlService revisionControlService
     ReleaseService releaseService
     DockerService dockerService
-    SlackService slackService
     SonarQubeService sonarQubeService
     SwaggerService swaggerService
     PipelineStagesSuit suit
@@ -507,11 +505,6 @@ class FlowBuilder implements Serializable {
 
     FlowBuilder withRevisionControl(RevisionControlBuilder revisionControlBuilder) {
         this.revisionControlBuilder = revisionControlBuilder
-        return this
-    }
-
-    FlowBuilder withSlack(SlackBuilder slackBuilder) {
-        this.slackBuilder = slackBuilder
         return this
     }
 
