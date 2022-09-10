@@ -20,6 +20,7 @@ import pro.javatar.pipeline.exception.InvalidBranchException
 import pro.javatar.pipeline.exception.HgFlowReleaseFinishException
 import pro.javatar.pipeline.exception.ReleaseFinishException
 import pro.javatar.pipeline.model.ReleaseInfo
+import pro.javatar.pipeline.domain.Vcs
 import pro.javatar.pipeline.service.vcs.model.VscCheckoutRequest
 import pro.javatar.pipeline.util.Logger
 
@@ -37,9 +38,15 @@ class HgService extends RevisionControlService {
     String username
     String flowPrefix = ""
     HgFlowService hgFlowService
+    Vcs vcs
+
+    HgService(Vcs vcs) {
+        this.vcs = vcs
+    }
 
     HgService(String repo, String credentialsId,
               String repoOwner, String flowPrefix) {
+
         this.repo = repo
         this.credentialsId = credentialsId
         this.repoOwner = repoOwner
@@ -233,13 +240,6 @@ class HgService extends RevisionControlService {
     String getRepoName() {
         return null
     }
-
-    @Override
-    String getDomain() {
-        return null
-    }
-
-
 
     def getDebugInfo() {
         Logger.debug("getDebugInfo started")

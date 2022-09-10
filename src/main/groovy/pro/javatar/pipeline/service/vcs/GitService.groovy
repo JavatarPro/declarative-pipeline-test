@@ -19,7 +19,7 @@ import com.cloudbees.groovy.cps.NonCPS
 import pro.javatar.pipeline.exception.GitFlowReleaseFinishException
 import pro.javatar.pipeline.exception.InvalidBranchException
 import pro.javatar.pipeline.model.ReleaseInfo
-import pro.javatar.pipeline.model.Vcs
+import pro.javatar.pipeline.domain.Vcs
 import pro.javatar.pipeline.service.vcs.model.VscCheckoutRequest
 import pro.javatar.pipeline.util.Logger
 

@@ -2,8 +2,12 @@
  * Copyright (c) 2021 Javatar LLC
  * All rights reserved.
  */
-package pro.javatar.pipeline.model
+package pro.javatar.pipeline.domain
 
+import pro.javatar.pipeline.model.BuildServiceType
+import pro.javatar.pipeline.model.DockerOrchestrationServiceType
+import pro.javatar.pipeline.model.PipelineStagesSuit
+import pro.javatar.pipeline.release.ReleaseType
 import pro.javatar.pipeline.util.LogLevel
 
 /**
@@ -29,8 +33,9 @@ class Docker implements Serializable {
 class Pipeline implements Serializable {
     PipelineStagesSuit suit
     String service
-    BuildServiceType build
     DockerOrchestrationServiceType orchestration
+    List<BuildServiceType> build
+    List<ReleaseType> release
 }
 
 class Vcs implements Serializable { // version control system
@@ -45,5 +50,17 @@ class Maven implements Serializable {
     String jenkins_tool_jdk
     String build_cmd = "mvn clean package"
     String integration_test_cmd = "mvn -B verify -DskipITs=false"
+    String params
+}
+
+class AutoTest implements Serializable {
+    List<Command> commands
+}
+
+class Command implements Serializable {
+    String shell
+    String job
+    String name
+    String file
     String params
 }

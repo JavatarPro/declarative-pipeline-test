@@ -109,9 +109,6 @@ class FlowBuilderConverter {
             return null
         }
         DockerOrchestrationServiceType orchestrationServiceType = DockerOrchestrationServiceType.fromString(type)
-        if (orchestrationServiceType == DockerOrchestrationServiceType.MESOS) {
-            return toMesosService(yamlFile)
-        }
         if (orchestrationServiceType == DockerOrchestrationServiceType.NOMAD) {
             return toNomadService(yamlFile)
         }
@@ -179,15 +176,7 @@ class FlowBuilderConverter {
 
     RevisionControlBuilder toRevisionControlBuilder(YamlConfig yamlFile) {
         def repo = yamlFile.getService().getRepo()
-        return new RevisionControlBuilder()
-                .withRepo(repo.getName())
-                .withRepoOwner(repo.getOwner())
-                .withRevisionControlType(repo.getRevisionControl())
-                .withVcsRepositoryType(repo.getType())
-                .withFlowPrefix(null)
-                .withCredentialsId(repo.getCredentialsId())
-                .withDomain(repo.getDomain())
-                .withBranch(repo.getBranch())
+        return new RevisionControlBuilder().build(repo.vcs());
     }
 
     S3Builder toS3Builder(YamlConfig yamlFile) {

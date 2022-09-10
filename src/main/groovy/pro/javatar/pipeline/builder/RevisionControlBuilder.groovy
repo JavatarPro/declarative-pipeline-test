@@ -12,16 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package pro.javatar.pipeline.builder
 
-import pro.javatar.pipeline.model.RevisionControlType
-import pro.javatar.pipeline.model.Vcs
-import pro.javatar.pipeline.model.VcsRepositoryType
+import pro.javatar.pipeline.domain.Vcs
 import pro.javatar.pipeline.service.vcs.HgService
 import pro.javatar.pipeline.service.vcs.GitService
 import pro.javatar.pipeline.service.vcs.RevisionControlService
-import pro.javatar.pipeline.service.vcs.VcsRepositoryUrlResolver
 import pro.javatar.pipeline.util.Logger
 
 /**
@@ -34,15 +30,12 @@ class RevisionControlBuilder implements Serializable {
         Logger.info("RevisionControlService.build() started")
         RevisionControlService result
         if (vcs.getUrl().endsWith(".git")) {
-            new GitService(repo, credentialsId, repoOwner, flowPrefix)
+            result = new GitService(vcs)
+        } else if (vcs.getUrl().endsWith(".hg")) {
+            result = new HgService(vcs)
+        } else {
+            throw new UnsupportedOperationException("Supported only .git and .hg repos");
         }
-        if (type == RevisionControlType.MERCURIAL) {
-            result = new HgService(repo, credentialsId, repoOwner, flowPrefix)
-        } else if (type == RevisionControlType.GIT) {
-            result = new GitService(repo, credentialsId, repoOwner, flowPrefix)
-        }
-        result.setUrlResolver(new VcsRepositoryUrlResolver(vcsRepositoryType, true, result))
-        result.setDomain(domain)
         Logger.info("RevisionControlService.build() finished")
         return result
     }

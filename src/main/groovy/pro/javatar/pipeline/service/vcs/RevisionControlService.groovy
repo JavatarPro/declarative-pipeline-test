@@ -35,8 +35,6 @@ abstract class RevisionControlService implements Serializable {
     static final String DEFAULT_CHECKOUT_FOLDER = "repo"
     String folder = DEFAULT_CHECKOUT_FOLDER
 
-    protected VcsRepositoryUrlResolver urlResolver
-
     protected String domain
 
     protected String userName
@@ -140,20 +138,8 @@ abstract class RevisionControlService implements Serializable {
         return getBranchWithPrefix(prefix, getDevBranch())
     }
 
-    void setUrlResolver(VcsRepositoryUrlResolver urlResolver) {
-        this.urlResolver = urlResolver
-    }
-
-    void setDomain(String domain) {
-        this.domain = domain
-    }
-
     void setUserName(String userName) {
         this.userName = userName
-    }
-
-    String getDomain() {
-        return domain
     }
 
     String getUserName() {
