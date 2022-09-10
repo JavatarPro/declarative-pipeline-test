@@ -68,11 +68,13 @@ class ConfigYamlConverter {
     }
 
     private static void populateVcs(Vcs vcs, def yaml) {
+        if (yaml == null) return
         vcs.url = yaml.url
         vcs.cred = yaml.cred
     }
 
     private static void populateMaven(Maven maven, def yaml) {
+        if (yaml == null) return
         maven.params = yaml.params
         maven.jenkins_tool_mvn = yaml.jenkins_tool_mvn
         maven.jenkins_tool_jdk = yaml.jenkins_tool_jdk
@@ -84,6 +86,7 @@ class ConfigYamlConverter {
 
     private static Docker toDocker(def yaml) {
         Docker docker = new Docker()
+        if (yaml == null) docker
         docker.name = yaml.name
         docker.cred = yaml.cred
         docker.url = yaml.url
@@ -91,12 +94,15 @@ class ConfigYamlConverter {
     }
 
     private static void populateAutoTests(AutoTest autoTest, def yaml) {
+        if (yaml == null) return
         List commands = yaml.commands
+        if (commands == null) return
         commands.each { val -> autoTest.commands.add(toCommand(val))}
     }
 
     private static Command toCommand(def yaml) {
         Command command = new Command()
+        if (yaml == null) return command
         command.name = yaml.name
         command.shell = yaml.shell
         command.job = yaml.job
@@ -105,6 +111,7 @@ class ConfigYamlConverter {
     }
 
     private static void populateVersion(VersionConfig version, def yaml) {
+        if (yaml == null) return
         version.file = yaml.file
         version.pattern = yaml.pattern
     }

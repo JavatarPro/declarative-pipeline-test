@@ -19,7 +19,7 @@ class FlowBuilder {
         return build(PipelineDslHolder.createDsl(dsl), configFiles.toList());
     }
 
-    static build(JenkinsDslService dsl, List<String> configFiles) {
+    static Flow build(JenkinsDslService dsl, List<String> configFiles) {
         Logger.debug("build Flow from dsl and configFiles: ${configFiles}")
         ConfigYamlConverter.toConfig()
 //        dslService = jenkinsDslService;
