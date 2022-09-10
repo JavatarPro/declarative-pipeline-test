@@ -35,6 +35,10 @@ auto_test:
 
 log_level: DEBUG
 
+slack:
+  enabled: false
+  webhookUrl: https://webhook/url
+
 version:
   file: pom.xml
   pattern: major.minor.patch.build

@@ -21,6 +21,7 @@ class Config implements Serializable {
     Maven maven = new Maven()
     LogLevel log_level = LogLevel.DEBUG
     AutoTest autoTest = new AutoTest()
+    Slack slack = new Slack()
     VersionConfig version = new VersionConfig()
 }
 

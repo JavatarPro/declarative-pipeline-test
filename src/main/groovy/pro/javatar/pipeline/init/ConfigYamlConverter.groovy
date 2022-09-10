@@ -13,6 +13,7 @@ import pro.javatar.pipeline.domain.Docker
 import pro.javatar.pipeline.domain.Maven
 import pro.javatar.pipeline.domain.Pipeline
 import pro.javatar.pipeline.domain.ReleaseType
+import pro.javatar.pipeline.domain.Slack
 import pro.javatar.pipeline.domain.Vcs
 import pro.javatar.pipeline.domain.VersionConfig
 import pro.javatar.pipeline.jenkins.api.JenkinsDsl
@@ -44,6 +45,7 @@ class ConfigYamlConverter {
         populateDockers(config.docker, yaml.docker)
         populateAutoTests(config.autoTest, yaml.auto_test)
         config.log_level = LogLevel.fromString(yaml.log_level)
+        populateSlack(config.slack, yaml.slack)
         populateVersion(config.version, yaml.version)
         return config
     }
@@ -108,6 +110,12 @@ class ConfigYamlConverter {
         command.job = yaml.job
         command.type = command.job != null ? CommandType.JENKINS_JOB : CommandType.SHELL
         return command
+    }
+
+    private static void populateSlack(Slack slack, def yaml) {
+        if (yaml == null) return
+        slack.enabled = yaml.enabled
+        slack.webhookUrl = yaml.webhookUrl
     }
 
     private static void populateVersion(VersionConfig version, def yaml) {

@@ -78,6 +78,10 @@ class ConfigInitializationTest extends Specification {
         and: "log-level config is correct"
         config.log_level == LogLevel.WARN
 
+        and: "slack config is correct"
+        config.slack.enabled == true
+        config.slack.webhookUrl == "https://webhook/url/updated"
+
         and: "version config is correct"
         config.version.file == "pom.xml"
         config.version.pattern == "major.minor.build"

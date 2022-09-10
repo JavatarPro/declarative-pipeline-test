@@ -8,6 +8,7 @@ import pro.javatar.pipeline.domain.AutoTest
 import pro.javatar.pipeline.domain.Config
 import pro.javatar.pipeline.domain.Maven
 import pro.javatar.pipeline.domain.Pipeline
+import pro.javatar.pipeline.domain.Slack
 import pro.javatar.pipeline.domain.Vcs
 import pro.javatar.pipeline.domain.VersionConfig
 
@@ -24,6 +25,7 @@ class ConfigMerger {
         mergeMaven(base.maven, overrides.maven)
         base.log_level = item(base.log_level, overrides.log_level)
         mergeAutoTest(base.autoTest, overrides.autoTest)
+        mergeSlack(base.slack, overrides.slack)
         mergeVersion(base.version, overrides.version)
         return base
     }
@@ -34,6 +36,11 @@ class ConfigMerger {
         base.orchestration = item(base.orchestration, overrides.orchestration)
         base.build = list(base.build, overrides.build)
         base.release = list(base.release, overrides.release)
+    }
+
+    private static void mergeSlack(Slack base, Slack overrides) {
+        base.enabled = item(base.enabled, overrides.enabled)
+        base.webhookUrl = item(base.webhookUrl, overrides.webhookUrl)
     }
 
     private static void mergeVersion(VersionConfig base, VersionConfig overrides) {

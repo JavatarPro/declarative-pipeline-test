@@ -17,5 +17,9 @@ auto_test:
 
 log_level: WARN
 
+slack:
+  enabled: true
+  webhookUrl: https://webhook/url/updated
+
 version:
   pattern: major.minor.build

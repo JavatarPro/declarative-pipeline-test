@@ -85,6 +85,10 @@ class ConfigYamlConverterTest extends Specification {
         and: "log-level config is correct"
         config.log_level == LogLevel.DEBUG
 
+        and: "slack config is correct"
+        config.slack.enabled == false
+        config.slack.webhookUrl == "https://webhook/url"
+
         and: "version config is correct"
         config.version.file == "pom.xml"
         config.version.pattern == "major.minor.patch.build"
