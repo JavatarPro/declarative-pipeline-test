@@ -37,6 +37,7 @@ class ConfigYamlConverter {
 
     static Config toConfig(def yaml) {
         Config config = new Config()
+        if (yaml == null) return config
         populatePipeline(config.pipeline, yaml.pipeline)
         populateVcs(config.vcs, yaml.vcs)
         populateMaven(config.maven, yaml.maven)

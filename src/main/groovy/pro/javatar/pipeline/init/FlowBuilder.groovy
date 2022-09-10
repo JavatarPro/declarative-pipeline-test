@@ -4,6 +4,7 @@
  */
 package pro.javatar.pipeline.init
 
+import pro.javatar.pipeline.Flow
 import pro.javatar.pipeline.jenkins.api.JenkinsDslService
 import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.util.Logger
@@ -14,17 +15,14 @@ import pro.javatar.pipeline.util.Logger
  */
 class FlowBuilder {
 
-    FlowBuilder(def dsl, String... configFiles) {
-        this(PipelineDslHolder.createDsl(dsl), configFiles.toList())
+    static Flow build(def dsl, String... configFiles) {
+        return build(PipelineDslHolder.createDsl(dsl), configFiles.toList());
     }
 
-    FlowBuilder(def dsl, List<String> configFiles) {
-        this(PipelineDslHolder.createDsl(dsl), configFiles)
-    }
-
-    protected FlowBuilder(JenkinsDslService dsl, List<String> configFiles) {
+    static build(JenkinsDslService dsl, List<String> configFiles) {
+        Logger.debug("build Flow from dsl and configFiles: ${configFiles}")
+        ConfigYamlConverter.toConfig()
 //        dslService = jenkinsDslService;
 //        this.configFiles = configFiles;
-        Logger.debug("FlowBuilder#constructor: configFiles: ${configFiles}")
     }
 }

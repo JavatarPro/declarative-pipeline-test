@@ -19,7 +19,7 @@ class Config implements Serializable {
     List<Docker> docker = new ArrayList<>()
     Vcs vcs = new Vcs()
     Maven maven = new Maven()
-    LogLevel log_level = LogLevel.INFO
+    LogLevel log_level = LogLevel.DEBUG
     AutoTest autoTest = new AutoTest()
     VersionConfig version = new VersionConfig()
 }

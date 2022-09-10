@@ -31,7 +31,7 @@ class JenkinsDslServiceMock implements JenkinsDslService {
 
     @Override
     Map getJenkinsJobParameters() {
-        return [repo: "service"]
+        return [repo: "service", service: "job", system: "ats"]
     }
 
     @Override
