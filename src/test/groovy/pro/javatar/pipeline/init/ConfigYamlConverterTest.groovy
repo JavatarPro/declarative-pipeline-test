@@ -35,15 +35,16 @@ class ConfigYamlConverterTest extends Specification {
     def setupSpec() throws Exception {
         logger.info("setup mocks")
         dsl = createDsl(new PipelineDslHolderMock())
-        dsl = new JenkinsDslServiceMock();
+        dsl = new JenkinsDslServiceMock()
     }
 
     def "yaml config converter test"() {
         String yaml = dsl.readConfiguration(K8S_PIPELINE_CONFIG_FILE)
-        given: "pipeline configuration in yaml: " + yaml
+        def binding = [service: "job", system: "ats"]
+        given: "pipeline configuration with binding: ${binding} in yaml:\n ${yaml}"
 
         when: "conversion from raw yaml string to Config object completed"
-        Config config = ConfigYamlConverter.toConfig(yaml)
+        Config config = ConfigYamlConverter.toConfig(yaml, binding, dsl)
 
         then: "expected all configuration is correct"
 
@@ -62,8 +63,8 @@ class ConfigYamlConverterTest extends Specification {
 
         and: "vcs config is correct"
         config.maven.params == "-Dmaven.wagon.http.ssl.insecure=true"
-        config.maven.tool == "maven_383"
-        config.maven.java == "JDK17"
+        config.maven.jenkins_tool_mvn == "maven_383"
+        config.maven.jenkins_tool_jdk == "JDK17"
 
         and: "docker config is correct"
         config.docker[0].name == "dev"

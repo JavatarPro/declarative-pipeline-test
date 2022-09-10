@@ -9,20 +9,19 @@ import pro.javatar.pipeline.model.DockerOrchestrationServiceType
 import pro.javatar.pipeline.model.PipelineStagesSuit
 import pro.javatar.pipeline.release.ReleaseType
 import pro.javatar.pipeline.util.LogLevel
-import pro.javatar.pipeline.util.RestClient
 
 /**
  * @author Borys Zora
  * @version 2021-06-12
  */
 class Config implements Serializable {
-    Pipeline pipeline
-    List<Docker> docker
-    Vcs vcs
-    Maven maven
-    LogLevel log_level
-    AutoTest autoTest
-    VersionConfig version
+    Pipeline pipeline = new Pipeline()
+    List<Docker> docker = new ArrayList<>()
+    Vcs vcs = new Vcs()
+    Maven maven = new Maven()
+    LogLevel log_level = LogLevel.INFO
+    AutoTest autoTest = new AutoTest()
+    VersionConfig version = new VersionConfig()
 }
 
 class Docker implements Serializable {
@@ -35,8 +34,8 @@ class Pipeline implements Serializable {
     PipelineStagesSuit suit
     String service
     DockerOrchestrationServiceType orchestration
-    List<BuildServiceType> build
-    List<ReleaseType> release
+    List<BuildServiceType> build = new ArrayList<>()
+    List<ReleaseType> release = new ArrayList<>()
 }
 
 class Vcs implements Serializable { // version control system
@@ -49,13 +48,13 @@ class Maven implements Serializable {
     String repo_url
     String jenkins_tool_mvn
     String jenkins_tool_jdk
-    String build_cmd = "mvn clean package"
+    String build_cmd = "mvn clean install"
     String integration_test_cmd = "mvn -B verify -DskipITs=false"
     String params
 }
 
 class AutoTest implements Serializable {
-    List<Command> commands
+    List<Command> commands = new ArrayList<>()
 }
 
 class Command implements Serializable {

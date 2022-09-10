@@ -15,8 +15,8 @@ vcs:
 
 maven:
   params: "-Dmaven.wagon.http.ssl.insecure=true"
-  tool: maven_383
-  java: JDK17
+  jenkins_tool_mvn: maven_383
+  jenkins_tool_jdk: JDK17
 
 docker:
   - name: dev
@@ -26,7 +26,7 @@ docker:
     cred: jenkins-docker-prod-k8s-nexus-cred
     url: docker-prod.javatar.com
 
-auto-test:
+auto_test:
   commands:
     - name: run system-tests
       shell: ls -lh
