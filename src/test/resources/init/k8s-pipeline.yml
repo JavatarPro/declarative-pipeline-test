@@ -27,9 +27,11 @@ docker:
     url: docker-prod.javatar.com
 
 auto-test:
-  command:
-    shell: ls -lh
-    # job: common/system-test
+  commands:
+    - name: run system-tests
+      shell: ls -lh
+    - name: common system tests
+      job: common/system-test
 
 log_level: DEBUG
 

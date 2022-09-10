@@ -7,13 +7,10 @@ package pro.javatar.pipeline.jenkins.dsl
 import com.cloudbees.groovy.cps.NonCPS;
 import pro.javatar.pipeline.jenkins.api.JenkinsDslService
 import pro.javatar.pipeline.jenkins.api.JenkinsExecutor
-import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.stage.StageAware
 import pro.javatar.pipeline.util.StringUtils
 
 import java.time.Duration
-
-import static pro.javatar.pipeline.service.PipelineDslHolder.dsl
 
 /**
  * @author Borys Zora
@@ -30,7 +27,7 @@ class JenkinsDslServiceImpl implements JenkinsDslService {
 
     @Override
     void executeStage(StageAware stage) {
-        dsl.stage(stage.getName()) {
+        dsl.stage(stage.name()) {
             stage.execute();
         }
     }

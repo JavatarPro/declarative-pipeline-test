@@ -21,6 +21,8 @@ class Config implements Serializable {
     Vcs vcs
     Maven maven
     LogLevel log_level
+    AutoTest autoTest
+    VersionConfig version
 }
 
 class Docker implements Serializable {
@@ -62,9 +64,15 @@ class Command implements Serializable {
     String name
     String file
     String params
+    CommandType type
 }
 
 class Slack implements Serializable {
     boolean enabled
     String webhookUrl
+}
+
+class VersionConfig implements Serializable {
+    String file
+    String pattern
 }

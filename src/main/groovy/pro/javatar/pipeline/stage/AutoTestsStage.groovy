@@ -67,7 +67,7 @@ class AutoTestsStage extends Stage {
     }
 
     @Override
-    String getName() {
+    String name() {
         return "auto tests"
     }
 

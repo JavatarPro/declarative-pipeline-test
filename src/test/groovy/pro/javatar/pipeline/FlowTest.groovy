@@ -17,8 +17,8 @@ import spock.lang.Specification
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static pro.javatar.pipeline.service.PipelineDslHolder.dsl;
+import static org.mockito.Mockito.when
+
 /**
  * @author Borys Zora
  * @version 2019-11-03
@@ -44,7 +44,7 @@ class FlowTest extends Specification {
 
         expect:
         stages.size() == 1;
-        stages.get(0) == stage.getName()
+        stages.get(0) == stage.name()
     }
 
     def "test execute"() {

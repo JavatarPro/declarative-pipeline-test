@@ -131,7 +131,7 @@ class FlowBuilder implements Serializable {
             if (stageTypesToBeSkipped.contains(stageType)) {
                 stage.skipStage = true
             }
-            Logger.info(stage.getName() + " is present: " + stageType.name())
+            Logger.info(stage.name() + " is present: " + stageType.name())
             flow.addStage(stage)
         }
         Logger.info("Flow with stages: " + flow.getStageNames())

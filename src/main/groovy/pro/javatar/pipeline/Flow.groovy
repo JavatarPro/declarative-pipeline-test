@@ -14,13 +14,12 @@
  */
 package pro.javatar.pipeline
 
-import pro.javatar.pipeline.builder.YamlFlowBuilder
+
+import pro.javatar.pipeline.init.FlowBuilder
 import pro.javatar.pipeline.model.ReleaseInfo
 import pro.javatar.pipeline.jenkins.api.JenkinsDslService
 import pro.javatar.pipeline.stage.StageAware;
 import pro.javatar.pipeline.util.Logger
-
-import static java.lang.String.format
 
 /**
  * @author Borys Zora
@@ -32,11 +31,11 @@ class Flow implements Serializable {
 
     private List<StageAware> stages = new ArrayList<>();
     private ReleaseInfo releaseInfo = new ReleaseInfo();
-    private JenkinsDslService jenkinsDslService;
+    private JenkinsDslService dsl;
 
-    Flow(ReleaseInfo releaseInfo, JenkinsDslService jenkinsDslService) {
+    Flow(ReleaseInfo releaseInfo, JenkinsDslService dsl) {
         this.releaseInfo = releaseInfo;
-        this.jenkinsDslService = jenkinsDslService;
+        this.dsl = dsl;
     }
 
     static Flow of(def dsl) {
@@ -44,11 +43,7 @@ class Flow implements Serializable {
     }
 
     static Flow of(def dsl, String config) {
-        return new YamlFlowBuilder(dsl, config).build()
-    }
-
-    static Flow ofConfigV3(def dsl, String config) {
-        return new YamlFlowBuilder(dsl, config).build2()
+        return new FlowBuilder(dsl, config).build()
     }
 
     Flow addStage(StageAware stage) {
@@ -69,13 +64,13 @@ class Flow implements Serializable {
     void executeStage(StageAware stage) {
         stage.propagateReleaseInfo(releaseInfo)
         if (stage.shouldSkip()) {
-            Logger.warn(format("Stage: %s will be skipped due to configuration settings", stage.getName()));
+            Logger.warn("Stage: ${stage.name()} will be skipped due to configuration settings")
             return;
         }
-        jenkinsDslService.executeStage(stage);
+        dsl.executeStage(stage);
     }
 
     List<String> getStageNames() {
-        stages.collect {it.getName()}
+        stages.collect {it.name()}
     }
 }

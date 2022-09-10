@@ -69,7 +69,7 @@ abstract class SignOffStage extends Stage {
     abstract String getApprovePersonType();
 
     @Override
-    String getName() {
+    String name() {
         return "${getApprovePersonType()} sign off"
     }
 
