@@ -46,22 +46,21 @@ class ConfigInitializationTest extends Specification {
         then: "expected all configuration is correct"
 
         expect: "pipeline config is correct"
-        config.pipeline.suit == PipelineStagesSuit.SERVICE_SIMPLE
+        config.pipeline.suit == PipelineStagesSuit.LIBRARY
         config.pipeline.service == "job"
         config.pipeline.orchestration == DockerOrchestrationServiceType.K8S
         config.pipeline.build.get(0) == BuildType.MAVEN
         config.pipeline.build.get(1) == BuildType.DOCKER
-        config.pipeline.release.get(0) == ReleaseType.VCS
-        config.pipeline.release.get(1) == ReleaseType.DOCKER
+        config.pipeline.release.get(0) == ReleaseType.DOCKER
 
         and: "vcs config is correct"
         config.vcs.url == "ssh://git@gitlab.javatar.com:1022/ats/job.git"
-        config.vcs.cred == "javatar-jenkins-gitlab-ssh"
+        config.vcs.cred == "javatar-jenkins-gitlab-ats-ssh"
 
         and: "vcs config is correct"
         config.maven.params == "-Dmaven.wagon.http.ssl.insecure=true"
-        config.maven.jenkins_tool_mvn == "maven_383"
-        config.maven.jenkins_tool_jdk == "JDK17"
+        config.maven.jenkins_tool_mvn == "maven_384"
+        config.maven.jenkins_tool_jdk == "JDK18"
 
         and: "docker config is correct"
         config.docker[0].name == "dev"
@@ -72,18 +71,15 @@ class ConfigInitializationTest extends Specification {
         config.docker[1].url == "docker-prod.javatar.com"
 
         and: "auto-test config is correct"
-        config.autoTest.commands[0].name == "run system-tests"
-        config.autoTest.commands[0].shell == "ls -lh"
-        config.autoTest.commands[0].type == CommandType.SHELL
-        config.autoTest.commands[1].name == "common system tests"
-        config.autoTest.commands[1].job == "common/system-test"
-        config.autoTest.commands[1].type == CommandType.JENKINS_JOB
+        config.autoTest.commands[0].name == "ats system tests"
+        config.autoTest.commands[0].job == "ats/system-test"
+        config.autoTest.commands[0].type == CommandType.JENKINS_JOB
 
         and: "log-level config is correct"
-        config.log_level == LogLevel.DEBUG
+        config.log_level == LogLevel.WARN
 
         and: "version config is correct"
         config.version.file == "pom.xml"
-        config.version.pattern == "major.minor.patch.build"
+        config.version.pattern == "major.minor.build"
     }
 }

@@ -15,7 +15,7 @@
 package pro.javatar.pipeline.model
 
 import pro.javatar.pipeline.exception.UnrecognizedDockerOrchestrationTypeException
-import pro.javatar.pipeline.exception.UnrecognizedRevisionControlTypeException
+import pro.javatar.pipeline.util.Logger
 
 /**
  * @author Borys Zora
@@ -29,9 +29,10 @@ enum DockerOrchestrationServiceType implements Serializable {
 
     static DockerOrchestrationServiceType fromString(String type) {
         if (type == null) {
-            throw new UnrecognizedRevisionControlTypeException("type is null")
+            Logger.info("orchestration type is null, by default 'k8s' will be used")
+            return K8S
         }
-        if("nomad".equalsIgnoreCase(type) || "HashiCorp".equalsIgnoreCase(type)) {
+        if("nomad".equalsIgnoreCase(type)) {
             return NOMAD
         }
         if ("k8s".equalsIgnoreCase(type) || "kubernetes".equalsIgnoreCase(type)) {

@@ -1,0 +1,21 @@
+pipeline:
+  suit: library
+  release:
+    - docker
+
+vcs:
+  cred: javatar-jenkins-gitlab-ats-ssh
+
+maven:
+  jenkins_tool_mvn: maven_384
+  jenkins_tool_jdk: JDK18
+
+auto_test:
+  commands:
+    - name: ats system tests
+      job: ats/system-test
+
+log_level: WARN
+
+version:
+  pattern: major.minor.build
