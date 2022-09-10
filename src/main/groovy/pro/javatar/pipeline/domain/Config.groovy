@@ -14,8 +14,6 @@ import pro.javatar.pipeline.util.LogLevel
  * @author Borys Zora
  * @version 2021-06-12
  */
-class Model {}
-
 class Config implements Serializable {
     Pipeline pipeline
     List<Docker> docker

@@ -23,7 +23,7 @@ import java.time.Duration
  * @version 2019-11-10
  */
 @Slf4j
-class YamlFlowBuilderTest extends Specification {
+class YamlFlowBuilderTest /*extends Specification*/ {
 
     public static final String GRADLE_NOMAD_CONFIG_FILE = "continuous-delivery/nomad-gradle-declarative-pipeline.yml"
     public static final String DOCKER_ONLY_CONFIG_FILE = "continuous-delivery/docker-only-pipeline.yml"
