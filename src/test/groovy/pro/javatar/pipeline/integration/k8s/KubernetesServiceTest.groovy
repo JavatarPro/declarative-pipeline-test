@@ -26,7 +26,7 @@ class KubernetesServiceTest extends Specification {
     static final String SERVICE_NAME = "nginx-app-1";
 
     @Shared
-    JenkinsDsl dslService = mock(JenkinsDsl.class);
+    JenkinsDsl dsl = mock(JenkinsDsl.class);
 
     @Shared
     KubernetesService service;
@@ -35,8 +35,8 @@ class KubernetesServiceTest extends Specification {
         log.info("setup mocks")
         PipelineDslHolder.createDsl(new PipelineDslHolderMock())
         String jsonResponse = getResponseStub(K8S_DEPLOYMENT_STATUS_RESPONSE)
-        when(dslService.getShellExecutionResponse(anyString())).thenReturn(jsonResponse);
-        service = new KubernetesService(dslService);
+        when(dsl.getShellExecutionResponse(anyString())).thenReturn(jsonResponse);
+        service = new KubernetesService(dsl);
     }
 
     def "IsDeploymentReady"() {

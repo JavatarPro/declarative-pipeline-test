@@ -41,6 +41,7 @@ class JenkinsDslServiceMock implements JenkinsDsl {
 
     @Override
     String getShellExecutionResponse(String command) {
+        log.info(command)
         return "";
     }
 

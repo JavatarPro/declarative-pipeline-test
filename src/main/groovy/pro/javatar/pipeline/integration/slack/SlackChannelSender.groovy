@@ -9,6 +9,7 @@ import pro.javatar.pipeline.domain.Slack
 import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.util.Logger
 import pro.javatar.pipeline.util.RestClient
+import pro.javatar.pipeline.util.StringUtils
 
 /**
  * @author Borys Zora
@@ -16,8 +17,8 @@ import pro.javatar.pipeline.util.RestClient
  */
 class SlackChannelSender implements Serializable {
 
-    Slack slack
-    JenkinsDsl dsl
+    private Slack slack
+    private JenkinsDsl dsl
 
     SlackChannelSender(Slack slack,
                        JenkinsDsl dsl) {
@@ -31,9 +32,11 @@ class SlackChannelSender implements Serializable {
         if (slack == null || !slack.enabled) {
             Logger.info("Slack is disabled: message: ${msg}")
         }
+        String message = StringUtils.toJson(["text": msg])
         new RestClient(dsl)
-                .withBody(msg)
+                .withBody(message)
                 .contentType(RestClient.HttpMediaType.JSON)
                 .post(slack.webhookUrl)
+                .execute()
     }
 }
