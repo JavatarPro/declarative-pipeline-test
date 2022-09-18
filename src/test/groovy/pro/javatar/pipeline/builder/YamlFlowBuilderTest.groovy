@@ -11,8 +11,6 @@ import pro.javatar.pipeline.config.Config
 import pro.javatar.pipeline.config.GradleConfig
 import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.mock.JenkinsDslServiceMock
-import pro.javatar.pipeline.mock.PipelineDslHolderMock
-import pro.javatar.pipeline.service.PipelineDslHolder
 import spock.lang.Shared
 
 import java.time.Duration
@@ -32,7 +30,6 @@ class YamlFlowBuilderTest /*extends Specification*/ {
 
     def setupSpec() throws Exception {
         log.info("setup mocks")
-        dslService = PipelineDslHolder.createDsl(new PipelineDslHolderMock())
         dslService = new JenkinsDslServiceMock();
     }
 

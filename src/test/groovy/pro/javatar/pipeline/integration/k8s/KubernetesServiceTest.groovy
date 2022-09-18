@@ -6,7 +6,6 @@ package pro.javatar.pipeline.integration.k8s
 
 import groovy.util.logging.Slf4j
 import pro.javatar.pipeline.jenkins.api.JenkinsDsl
-import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.service.PipelineDslHolder
 import spock.lang.Shared
 import spock.lang.Specification
@@ -33,7 +32,6 @@ class KubernetesServiceTest extends Specification {
 
     def setupSpec() throws Exception {
         log.info("setup mocks")
-        PipelineDslHolder.createDsl(new PipelineDslHolderMock())
         String jsonResponse = getResponseStub(K8S_DEPLOYMENT_STATUS_RESPONSE)
         when(dsl.getShellExecutionResponse(anyString())).thenReturn(jsonResponse);
         service = new KubernetesService(dsl);

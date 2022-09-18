@@ -4,7 +4,6 @@ import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
 import pro.javatar.pipeline.Utils
-import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.service.PipelineDslHolder
 import spock.lang.Specification
 
@@ -15,7 +14,6 @@ class JsonConfigMergerTest extends Specification {
 
     def setupSpec() throws Exception {
         logger.info("setup mocks")
-        PipelineDslHolder.dsl = new PipelineDslHolderMock()
     }
 
     void setup() {

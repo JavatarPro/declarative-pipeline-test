@@ -9,7 +9,6 @@ import pro.javatar.pipeline.domain.Slack
 import pro.javatar.pipeline.integration.slack.SlackChannelSender
 import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.mock.JenkinsDslServiceMock
-import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.util.StringUtils
 import spock.lang.Shared
@@ -41,7 +40,6 @@ class K8sVersionInfoTest extends Specification {
 
     def setupSpec() throws Exception {
         log.info("setup mocks")
-        PipelineDslHolder.createDsl(new PipelineDslHolderMock())
         String jsonResponse = getFileAsString("k8s/all-deploys.json")
         when(dsl.getShellExecutionResponse(anyString())).thenReturn(jsonResponse);
         service = new K8sVersionInfo(dsl, "docker-dev.javatar.com", "docker-prod.javatar.com")

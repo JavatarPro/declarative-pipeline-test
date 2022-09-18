@@ -4,8 +4,6 @@ import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
 import pro.javatar.pipeline.Utils
-import pro.javatar.pipeline.mock.PipelineDslHolderMock
-import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.service.orchestration.model.OrchestrationRequest
 import spock.lang.Ignore
 import spock.lang.Specification
@@ -18,7 +16,6 @@ class JsonTemplatesRequestProviderTest extends Specification {
 
     def setupSpec() throws Exception {
         logger.info("setup mocks")
-        PipelineDslHolder.createDsl(new PipelineDslHolderMock())
     }
 
     void setup() {

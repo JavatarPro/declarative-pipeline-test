@@ -3,7 +3,6 @@ package pro.javatar.pipeline.service.orchestration
 import groovy.util.logging.Slf4j
 import pro.javatar.pipeline.Utils
 import pro.javatar.pipeline.integration.nomad.NomadService
-import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.service.orchestration.model.DeploymentRequestBO
 import pro.javatar.pipeline.service.orchestration.model.DeploymentResponseBO
@@ -20,7 +19,6 @@ class NomadServiceTest extends Specification {
 
     def setupSpec() throws Exception {
         logger.info("setup mocks")
-        PipelineDslHolder.createDsl(new PipelineDslHolderMock())
     }
 
     void setup() {

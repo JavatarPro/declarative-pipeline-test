@@ -11,7 +11,6 @@ import pro.javatar.pipeline.domain.Config
 import pro.javatar.pipeline.domain.ReleaseType
 import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.mock.JenkinsDslServiceMock
-import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.model.DockerOrchestrationServiceType
 import pro.javatar.pipeline.model.PipelineStagesSuit
 import pro.javatar.pipeline.util.LogLevel
@@ -32,8 +31,7 @@ class ConfigInitializationTest extends Specification {
 
     def setupSpec() throws Exception {
         logger.info("setup mocks")
-        dsl = createDsl(new PipelineDslHolderMock())
-        dsl = new JenkinsDslServiceMock()
+        dsl = createDsl(new JenkinsDslServiceMock())
     }
 
     void testCreateEffectiveConfig() {
