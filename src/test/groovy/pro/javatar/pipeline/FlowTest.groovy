@@ -5,19 +5,18 @@
 package pro.javatar.pipeline
 
 import groovy.util.logging.Slf4j
+import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.mock.JenkinsDslServiceMock
-import pro.javatar.pipeline.mock.PipelineDslHolderMock
 import pro.javatar.pipeline.model.ReleaseInfo
-import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.stage.BuildAndUnitTestStage
 import pro.javatar.pipeline.stage.StageAware
-import spock.lang.Ignore
 import spock.lang.Specification
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when
+import static pro.javatar.pipeline.Utils.getFileAsString
 
 /**
  * @author Borys Zora
@@ -26,14 +25,8 @@ import static org.mockito.Mockito.when
 @Slf4j("logger")
 class FlowTest extends Specification {
 
-    Flow flow;
-
-    void setup() {
-        PipelineDslHolder.createDsl(new PipelineDslHolderMock())
-        flow = new Flow(new ReleaseInfo(), new JenkinsDslServiceMock())
-    }
-
     def "test addStage"() {
+        Flow flow = new Flow(new ReleaseInfo(), new JenkinsDslServiceMock())
         given: "empty flow object"
 
         when: "add stage to flow and retrieve all stages"
@@ -48,6 +41,7 @@ class FlowTest extends Specification {
     }
 
     def "test execute"() {
+        Flow flow = new Flow(new ReleaseInfo(), new JenkinsDslServiceMock())
         given: "empty flow object"
 
         when: "add mock sages to flow object and execute it"
@@ -67,13 +61,19 @@ class FlowTest extends Specification {
         verify(stage3, times(1)).execute()
     }
 
-    @Ignore
-    def "test executeStage"() {
-        //given:
+    def "test of configuration for suit analyse-service-versions"() {
+        JenkinsDsl dsl = new JenkinsDslServiceMock()
+                .addResponse("kubectl get deploy -o json",  getFileAsString("k8s/all-deploys.json"))
+        String config = "init/k8s-pipeline-analyse-suit.yml"
+        Flow flow = Flow.of(dsl, config)
+        given: "analyse-service-versions suit in config:\n${config}"
 
-        //when:
-        // TODO implement stimulus
-        //then:
-        // TODO implement assertions
+        when: "flow is executed"
+        flow.execute()
+
+        then: "expected parsing of versions succeeded and stages contains checked items below"
+
+        expect:
+        flow.stageNames[0] == "Version Info"
     }
 }

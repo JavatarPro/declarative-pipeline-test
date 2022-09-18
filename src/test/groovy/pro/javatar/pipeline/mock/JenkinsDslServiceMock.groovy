@@ -19,6 +19,8 @@ import java.time.Duration
 @Slf4j
 class JenkinsDslServiceMock implements JenkinsDsl {
 
+    Map<String, Queue<Object>> responses = new HashMap<>()
+
     @Override
     void executeStage(StageAware stage) {
         stage.execute();
@@ -41,8 +43,9 @@ class JenkinsDslServiceMock implements JenkinsDsl {
 
     @Override
     String getShellExecutionResponse(String command) {
-        log.info(command)
-        return "";
+        String resp = getResponse(command, "")
+        log.info("command: {} will respond with: {}", command, resp)
+        return resp;
     }
 
     @Override
@@ -98,5 +101,23 @@ class JenkinsDslServiceMock implements JenkinsDsl {
     @Override
     String buildNumber() {
         return "18"
+    }
+
+    JenkinsDslServiceMock addResponse(String command, def response) {
+        Queue<String> queue = responses.get(command)
+        if (queue == null) {
+            queue = new LinkedList<>()
+            responses.put(command, queue)
+        }
+        queue.add(response)
+        return this
+    }
+
+    def getResponse(String command, String defaultResponse) {
+        def queue = responses.get(command)
+        if (queue == null) {
+            return defaultResponse
+        }
+        return queue.poll()
     }
 }

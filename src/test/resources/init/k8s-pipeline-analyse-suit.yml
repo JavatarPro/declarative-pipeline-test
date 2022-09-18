@@ -1,0 +1,17 @@
+pipeline:
+  suit: analyse-service-versions
+  orchestration: k8s
+
+docker:
+  - name: dev
+    cred: jenkins-docker-dev-k8s-nexus-cred
+    url: docker-dev.javatar.com
+  - name: prod
+    cred: jenkins-docker-prod-k8s-nexus-cred
+    url: docker-prod.javatar.com
+
+slack:
+  enabled: true
+  webhookUrl: https://webhook/url
+
+log_level: DEBUG
