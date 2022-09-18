@@ -39,4 +39,12 @@ class SlackChannelSender implements Serializable {
                 .post(slack.webhookUrl)
                 .execute()
     }
+
+    // TODO with cred e.g.:
+    //    def pushRelease() {
+    //        dsl.withCredentials([[$class: 'UsernamePasswordMultiBinding', c: credentialsId,
+    //                              usernameVariable: 'HG_USERNAME', passwordVariable: 'HG_PASSWORD']]) {
+    //            dsl.sh("hg push https://${username}:${dsl.env.HG_PASSWORD}@bitbucket.org/${repoOwner}/${repo} --new-branch")
+    //        }
+    //    }
 }

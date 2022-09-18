@@ -70,6 +70,8 @@ class Command implements Serializable {
 class Slack implements Serializable {
     boolean enabled
     String webhookUrl
+    // TODO
+    String credentialsId
 }
 
 class VersionConfig implements Serializable {
