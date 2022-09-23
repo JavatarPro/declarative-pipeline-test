@@ -52,6 +52,7 @@ class Maven implements Serializable {
     String build_cmd = "mvn clean install"
     String integration_test_cmd = "mvn -B verify -DskipITs=false"
     String params
+    String layout = "default"
 }
 
 class AutoTest implements Serializable {

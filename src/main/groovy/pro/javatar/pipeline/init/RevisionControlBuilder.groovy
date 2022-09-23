@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pro.javatar.pipeline.builder
+package pro.javatar.pipeline.init
 
 import pro.javatar.pipeline.domain.Vcs
 import pro.javatar.pipeline.service.vcs.HgService
