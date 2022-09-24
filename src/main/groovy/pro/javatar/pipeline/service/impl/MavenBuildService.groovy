@@ -30,7 +30,7 @@ import static pro.javatar.pipeline.util.StringUtils.isNotBlank
  */
 class MavenBuildService extends BuildService implements NexusUploadAware {
 
-    Maven maven
+    Maven maven = new Maven()
 
     MavenBuildService() {
         Logger.info("MavenBuildService default constructor")
