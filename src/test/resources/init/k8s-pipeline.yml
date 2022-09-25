@@ -2,12 +2,8 @@ pipeline:
   suit: service-simple
   service: ${service}
   orchestration: k8s
-  build:
-    - maven
-    - docker
-  release:
-    - vcs
-    - docker
+  build: [maven, docker]
+  release: [vcs, docker]
 
 vcs:
   url: ssh://git@gitlab.javatar.com:1022/${system}/${service}.git
