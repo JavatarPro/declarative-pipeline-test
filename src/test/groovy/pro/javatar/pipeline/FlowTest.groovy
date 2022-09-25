@@ -30,7 +30,7 @@ class FlowTest extends Specification {
         given: "empty flow object"
 
         when: "add stage to flow and retrieve all stages"
-        StageAware stage = new BuildAndUnitTestStage(null, null);
+        StageAware stage = new BuildAndUnitTestStage();
         flow.addStage(stage)
         List<StageAware> stages = flow.getStageNames()
         then: "expected stage exists"

@@ -19,6 +19,7 @@ import pro.javatar.pipeline.service.vcs.HgService
 import pro.javatar.pipeline.service.vcs.GitService
 import pro.javatar.pipeline.service.vcs.RevisionControlService
 import pro.javatar.pipeline.util.Logger
+import pro.javatar.pipeline.util.StringUtils
 
 /**
  * @author Borys Zora
@@ -28,6 +29,10 @@ class RevisionControlBuilder implements Serializable {
 
     RevisionControlService build(Vcs vcs) {
         Logger.info("RevisionControlService.build() started")
+        if (vcs == null || vcs.getUrl() == null
+                || StringUtils.isBlank(vcs.getUrl())) {
+            return null
+        }
         RevisionControlService result
         if (vcs.getUrl().endsWith(".git")) {
             result = new GitService(vcs)

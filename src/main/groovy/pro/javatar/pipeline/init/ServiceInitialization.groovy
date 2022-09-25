@@ -66,6 +66,7 @@ class ServiceInitialization implements Serializable {
 
     // TODO refactor to multiple build stages instead of inheritance
     static void setupBuildService(Config config) {
+        if (config.pipeline.build.isEmpty()) return
         switch (config.pipeline.build.get(0)) {
             case BuildServiceType.MAVEN:
                 link(BuildService.class, MavenBuildService.class)
