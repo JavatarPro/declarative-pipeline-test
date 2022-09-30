@@ -1,0 +1,25 @@
+pipeline:
+  suit: service-simple
+  service: ${service}
+  orchestration: k8s
+  build: [maven, docker]
+  release: [vcs, docker]
+
+vcs:
+  url: ssh://git@gitlab.javatar.com:1022/${system}/${service}.git
+  cred: javatar-jenkins-gitlab-ssh
+
+maven:
+  params: "-Dmaven.wagon.http.ssl.insecure=true"
+  jenkins_tool_mvn: maven_383
+  jenkins_tool_jdk: JDK17
+
+docker:
+  - name: dev
+    cred: jenkins-docker-dev-k8s-nexus-cred
+    url: docker-dev.javatar.com
+  - name: prod
+    cred: jenkins-docker-prod-k8s-nexus-cred
+    url: docker-prod.javatar.com
+
+log_level: DEBUG
