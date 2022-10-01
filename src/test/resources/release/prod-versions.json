@@ -1,0 +1,6 @@
+{
+  "slack-plugin": "docker-prod.javatar.com/slack-plugin:0.0.4",
+  "profile": "docker-prod.javatar.com/profile:0.0.20",
+  "job": "docker-prod.javatar.com/job:0.0.174",
+  "probation": "docker-prod.javatar.com/probation:0.0.57"
+}
