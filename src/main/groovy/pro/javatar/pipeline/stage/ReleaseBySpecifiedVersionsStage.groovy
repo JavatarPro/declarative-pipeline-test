@@ -36,6 +36,7 @@ class ReleaseBySpecifiedVersionsStage extends Stage {
         RevisionControlService vcs = get(RevisionControlService.class)
         JenkinsDsl dsl = get(JenkinsDsl.class)
 
+        vcs.checkoutIntoFolder("master")
         def releaseRequest = dsl.readJson("${vcs.folder}/${RELEASE_FILE}")
         def currentVersions = releaseRequest.currentVersions
         def proposedVersions = releaseRequest.proposedVersions
