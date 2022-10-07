@@ -4,6 +4,7 @@
  */
 package pro.javatar.pipeline.mock
 
+import com.cloudbees.groovy.cps.NonCPS
 import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
 import org.yaml.snakeyaml.Yaml;
@@ -47,6 +48,7 @@ class JenkinsDslServiceMock implements JenkinsDsl {
         return new Yaml().load(yamlConfig);
     }
 
+    @NonCPS
     @Override
     String getShellExecutionResponse(String command) {
         String resp = getResponse(command, "")
