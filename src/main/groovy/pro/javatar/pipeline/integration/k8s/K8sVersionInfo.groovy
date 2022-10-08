@@ -48,7 +48,7 @@ class K8sVersionInfo implements Serializable {
         return result
     }
 
-    @NonCPS
+//    @NonCPS
     // versions to be proposed for next release to some env, used dockerUrlNext
     Map<String, String> versionsNext(Map<String, String> versions) {
         Logger.debug("K8sVersionInfo#versionsNext started")
