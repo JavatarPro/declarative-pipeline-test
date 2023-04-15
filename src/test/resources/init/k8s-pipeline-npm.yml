@@ -1,0 +1,29 @@
+pipeline:
+  suit: service-simple
+  service: jobs-lab-landing
+  orchestration: k8s
+  build: [npm, docker]
+  release: [vcs, docker]
+
+vcs:
+  url: ssh://git@gitlab.javatar.com:1022/common/jobs-lab-landing.git
+  cred: javatar-jenkins-gitlab-ssh
+
+docker:
+  - name: dev
+    cred: jenkins-docker-dev-k8s-nexus-cred
+    url: docker-dev.javatar.com
+  - name: prod
+    cred: jenkins-docker-prod-k8s-nexus-cred
+    url: docker-prod.javatar.com
+
+npm:
+  version: v19.9.0
+  type: nodejs
+
+log_level: INFO
+
+version:
+  file: package.json
+  pattern: major.minor.patch.build
+
