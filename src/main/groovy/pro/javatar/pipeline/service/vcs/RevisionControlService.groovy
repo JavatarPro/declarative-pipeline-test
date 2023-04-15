@@ -74,6 +74,28 @@ abstract class RevisionControlService implements Serializable {
 
     abstract def checkoutRepo(VscCheckoutRequest request)
 
+    abstract def moveFile(String oldPath, String newPath)
+
+    def checkoutIntoFolder(String branch) {
+        Logger.info("checkout branch: ${branch} into folder: ${folder} started")
+        dsl.dir(folder) {
+            dsl.sh("pwd; ls -la")
+            checkout(branch)
+            dsl.sh("pwd; ls -la")
+        }
+        Logger.info("checkout branch: ${branch} into folder: ${folder} completed")
+    }
+
+    def makeDir(String path) {
+        Logger.debug("makeDir: ${path} started")
+        dsl.dir(folder) {
+            dsl.sh("pwd; ls -la")
+            dsl.sh("mkdir -p ${path}")
+            dsl.sh("pwd; ls -la")
+        }
+        Logger.debug("makeDir: ${path} completed")
+    }
+
     def checkoutProdBranch() {
         checkout(getProdBranch())
     }
@@ -86,9 +108,17 @@ abstract class RevisionControlService implements Serializable {
 
     abstract def commitChanges(String message)
 
+    def commit(String message) {
+        dsl.dir(folder) {
+            commitChanges(message)
+        }
+    }
+
     abstract def release(String releaseVersion) throws ReleaseFinishException
 
     abstract def pushRelease()
+
+    abstract def push()
 
     def switchToDevelopBranch() {
         switchToBranch(getDevBranchWithPrefix(getFlowPrefix()))

@@ -4,6 +4,7 @@
  */
 package pro.javatar.pipeline.integration.k8s
 
+import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
 import pro.javatar.pipeline.domain.Slack
 import pro.javatar.pipeline.integration.slack.SlackChannelSender
@@ -74,5 +75,38 @@ class K8sVersionInfoTest extends Specification {
         versions.get("profile") == "docker-dev.javatar.com/profile:0.0.20"
         versions.get("org-structure") == "docker-dev.javatar.com/org-structure:0.0.237.297"
         versions.get("recruitment-database") == "docker-dev.javatar.com/recruitment-database:0.0.112.77"
+    }
+
+    def "next versions"() {
+        String release = getFileAsString("release/dev-versions.json")
+        def versions = new JsonSlurper().parseText(release)
+        given: "versions from dev env"
+
+        when: "transform to next versions"
+        def result = service.versionsNext(versions)
+
+        then: "expected we will switch to release versions from next env"
+
+        expect:
+        result.get("slack-plugin") == "docker-prod.javatar.com/slack-plugin:0.0.5"
+        result.get("profile") == "docker-prod.javatar.com/profile:0.0.21"
+        result.get("job") == "docker-prod.javatar.com/job:0.0.174"
+    }
+
+    def "to update for next env"() {
+        def dev = new JsonSlurper().parseText(getFileAsString("release/dev-versions.json"))
+        def prod = new JsonSlurper().parseText(getFileAsString("release/prod-versions.json"))
+        given: "versions from dev and prod env"
+
+        when: "we try to find what version should be updated"
+        def prodProposed = service.versionsNext(dev)
+        def result = service.toUpdate(prodProposed, prod)
+
+        then: "expected that some of them should be updated and some skipped"
+
+        expect:
+        result.get("slack-plugin") == "docker-prod.javatar.com/slack-plugin:0.0.5"
+        result.get("profile") == "docker-prod.javatar.com/profile:0.0.21"
+        result.get("onboarding") == "docker-prod.javatar.com/onboarding:0.0.43"
     }
 }

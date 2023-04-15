@@ -10,6 +10,7 @@ import pro.javatar.pipeline.mock.JenkinsDslServiceMock
 import pro.javatar.pipeline.model.ReleaseInfo
 import pro.javatar.pipeline.stage.BuildAndUnitTestStage
 import pro.javatar.pipeline.stage.StageAware
+import spock.lang.Ignore
 import spock.lang.Specification
 
 import static org.mockito.Mockito.mock;
@@ -30,7 +31,7 @@ class FlowTest extends Specification {
         given: "empty flow object"
 
         when: "add stage to flow and retrieve all stages"
-        StageAware stage = new BuildAndUnitTestStage(null, null);
+        StageAware stage = new BuildAndUnitTestStage();
         flow.addStage(stage)
         List<StageAware> stages = flow.getStageNames()
         then: "expected stage exists"
@@ -73,6 +74,18 @@ class FlowTest extends Specification {
 
         then: "expected parsing of versions succeeded and stages contains checked items below"
 
+        expect:
+        flow.stageNames[0] == "Version Info"
+    }
+
+    @Ignore
+    def "debug build and revision control services"() {
+        JenkinsDsl dsl = new JenkinsDslServiceMock()
+        given: "adf"
+        Flow flow = Flow.of(dsl, "suit/pipeline-k8s-simple-service-suit.yml")
+        when: ""
+        flow.execute()
+        then: ""
         expect:
         flow.stageNames[0] == "Version Info"
     }

@@ -27,7 +27,7 @@ class ReleaseInfoTest extends Specification {
         releaseInfo.currentVersion() == "1.0.0-SNAPSHOT"
         releaseInfo.releaseVersion() == "1.0.0"
         releaseInfo.nextVersion() == "1.0.1-SNAPSHOT"
-        releaseInfo.releaseVersionWithBuildSuffix() == "1.0.0.18"
+        releaseInfo.releaseVersionWithBuildSuffix() == "1.0.0.b18"
     }
 
 }

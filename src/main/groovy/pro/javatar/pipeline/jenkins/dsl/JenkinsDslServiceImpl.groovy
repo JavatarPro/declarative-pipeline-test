@@ -39,6 +39,12 @@ class JenkinsDslServiceImpl implements JenkinsDsl {
     }
 
     @Override
+    def readJson(String path) {
+        def json = dsl.readJSON file: path
+        return json
+    }
+
+    @Override
     Map getJenkinsJobParameters() {
         return dsl.params
     }
@@ -49,6 +55,7 @@ class JenkinsDslServiceImpl implements JenkinsDsl {
         return config
     }
 
+//    @NonCPS
     @Override
     String getShellExecutionResponse(String command) {
         String result = dsl.sh returnStdout: true, script: command

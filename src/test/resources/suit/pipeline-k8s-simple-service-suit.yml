@@ -22,19 +22,4 @@ docker:
     cred: jenkins-docker-prod-k8s-nexus-cred
     url: docker-prod.javatar.com
 
-auto_test:
-  commands:
-    - name: run system-tests
-      shell: ls -lh
-    - name: common system tests
-      job: common/system-test
-
 log_level: DEBUG
-
-slack:
-  enabled: false
-  webhookUrl: https://webhook/url
-
-version:
-  file: pom.xml
-  pattern: major.minor.patch.build

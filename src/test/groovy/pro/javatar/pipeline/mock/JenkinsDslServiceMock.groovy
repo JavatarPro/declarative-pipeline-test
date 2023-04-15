@@ -4,6 +4,8 @@
  */
 package pro.javatar.pipeline.mock
 
+import com.cloudbees.groovy.cps.NonCPS
+import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
 import org.yaml.snakeyaml.Yaml;
 import pro.javatar.pipeline.jenkins.api.JenkinsDsl
@@ -28,7 +30,12 @@ class JenkinsDslServiceMock implements JenkinsDsl {
 
     @Override
     String readConfiguration(String file) {
-        return new String(getClass().getClassLoader().getResourceAsStream(file).bytes);
+        return new String(getClass().getClassLoader().getResourceAsStream(file).bytes)
+    }
+
+    @Override
+    def readJson(String file) {
+        return new JsonSlurper().parseText(new String(getClass().getClassLoader().getResourceAsStream(file).bytes))
     }
 
     @Override
@@ -41,6 +48,7 @@ class JenkinsDslServiceMock implements JenkinsDsl {
         return new Yaml().load(yamlConfig);
     }
 
+    @NonCPS
     @Override
     String getShellExecutionResponse(String command) {
         String resp = getResponse(command, "")

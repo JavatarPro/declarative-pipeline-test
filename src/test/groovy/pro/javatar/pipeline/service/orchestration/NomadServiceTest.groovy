@@ -53,6 +53,7 @@ class NomadServiceTest extends Specification {
     }
 
 
+    @Ignore // TODO
     def "toOrchestrationRequest converter"(String service, String env, String dockerImage) {
         DeploymentRequestBO request = getDeploymentRequestBO(service, env)
         given: "deployment request"

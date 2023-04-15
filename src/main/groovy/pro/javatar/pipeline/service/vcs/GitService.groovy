@@ -15,7 +15,6 @@
 
 package pro.javatar.pipeline.service.vcs
 
-import com.cloudbees.groovy.cps.NonCPS
 import pro.javatar.pipeline.exception.GitFlowReleaseFinishException
 import pro.javatar.pipeline.exception.InvalidBranchException
 import pro.javatar.pipeline.model.ReleaseInfo
@@ -66,7 +65,7 @@ class GitService extends RevisionControlService {
     def checkoutRepo(String repoUrl, String branch) {
         Logger.debug("checkoutRepo with repoUrl: ${repoUrl}, branch: ${branch}")
         VscCheckoutRequest vscCheckoutRequest = new VscCheckoutRequest().withBranch(branch).withRepoUrl(repoUrl)
-                                                        .withCredentialsId(credentialsId)
+                                                        .withCredentialsId(vcs.cred)
         checkoutRepo(vscCheckoutRequest)
     }
 
@@ -81,6 +80,15 @@ class GitService extends RevisionControlService {
             Logger.debug("GitService#checkoutRepo successfully finished for repoUrl: ${request.getRepoUrl()}, " +
                     "branch: ${request.getBranch()}")
         }
+    }
+
+    @Override
+    def moveFile(String oldPath, String newPath) {
+        Logger.debug("moveFile from old path: ${oldPath} to new path: ${newPath} started")
+        dsl.dir(folder) {
+            dsl.sh "git mv ${oldPath} ${newPath}"
+        }
+        Logger.debug("moveFile from old path: ${oldPath} to new path: ${newPath} completed")
     }
 
     @Override
@@ -136,7 +144,7 @@ class GitService extends RevisionControlService {
     def createAndPushBranch(String branchName) {
         Logger.info("GitService:createAndPushBranch: branchName: ${branchName} started")
         dsl.sh "git checkout -b ${branchName}"
-        dsl.sshagent([credentialsId]) {
+        dsl.sshagent([vcs.cred]) {
             dsl.sh "git push -u origin ${branchName}"
         }
         Logger.info("GitService:createAndPushBranch: branchName: ${branchName} finished")
@@ -145,7 +153,7 @@ class GitService extends RevisionControlService {
     @Override
     def pushNewBranches() {
         Logger.debug("GitService:pushNewBranches started")
-        dsl.sshagent([credentialsId]) {
+        dsl.sshagent([vcs.cred]) {
             dsl.sh "git push --all -u"
         }
         Logger.debug("GitService:pushNewBranches finished")
@@ -155,7 +163,7 @@ class GitService extends RevisionControlService {
     def pushNewBranch(String branchName) {
         Logger.info("GitService:pushNewBranch: ${branchName} started")
         // git branch --set-upstream origin yourbranch
-        dsl.sshagent([credentialsId]) {
+        dsl.sshagent([vcs.cred]) {
             dsl.sh "git push -u origin ${branchName}"
         }
         Logger.info("GitService:pushNewBranch: ${branchName} finished")
@@ -168,7 +176,7 @@ class GitService extends RevisionControlService {
 
     @Override
     String getRepoName() {
-        return repo
+        return vcs.url
     }
 
     @Override
@@ -178,7 +186,7 @@ class GitService extends RevisionControlService {
 
     @Override
     def pushRelease() {
-        dsl.sshagent([credentialsId]) {
+        dsl.sshagent([vcs.cred]) {
             dsl.sh "git push"
             dsl.sh "git push --all"
             dsl.sh "git push origin --tags"
@@ -189,6 +197,17 @@ class GitService extends RevisionControlService {
 //            dsl.sh("git push https://${userName}:${dsl.env.GIT_PASSWORD}@bitbucket.org/${repoOwner}/${repo}.git")
 //            dsl.sh("git push https://${userName}:${dsl.env.GIT_PASSWORD}@bitbucket.org/${repoOwner}/${repo}.git --tags")
 //        }
+    }
+
+    def push() {
+        Logger.debug("git push started")
+        dsl.dir(folder) {
+            dsl.sh "pwd; ls -la"
+            dsl.sshagent([vcs.cred]) {
+                dsl.sh "git push --set-upstream origin master"
+            }
+        }
+        Logger.debug("git push completed")
     }
 
     def updateToDevelopBranch() {
@@ -277,16 +296,5 @@ class GitService extends RevisionControlService {
 
     def getShowConfigFile() {
         dsl.sh "cat .git/config"
-    }
-
-    @NonCPS
-    @Override
-    public String toString() {
-        return "GitService{" +
-                "credentialsId='" + credentialsId + '\'' +
-                ", repo='" + repo + '\'' +
-                ", repoOwner='" + repoOwner + '\'' +
-                ", flowPrefix='" + flowPrefix + '\'' +
-                "} "
     }
 }

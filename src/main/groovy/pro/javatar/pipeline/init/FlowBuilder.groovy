@@ -8,6 +8,7 @@ import pro.javatar.pipeline.Flow
 import pro.javatar.pipeline.domain.Config
 import pro.javatar.pipeline.jenkins.api.JenkinsDsl
 import pro.javatar.pipeline.model.ReleaseInfo
+import pro.javatar.pipeline.service.ContextHolder
 import pro.javatar.pipeline.service.PipelineDslHolder
 import pro.javatar.pipeline.stage.StageAware
 import pro.javatar.pipeline.util.Logger
@@ -28,11 +29,13 @@ class FlowBuilder {
 
     static Flow build(JenkinsDsl dsl,
                       List<String> configFiles) {
-        Logger.debug("build Flow from dsl and configFiles: ${configFiles}")
         Config config = createEffectiveConfig(dsl, configFiles)
-        createServices(dsl, config)
-        List<StageAware> stages = createStages(config)
+        Logger.dslService = dsl
+        Logger.LEVEL = config.log_level
+        Logger.debug("build Flow from dsl and configFiles: ${configFiles}")
         ReleaseInfo info = releaseInfo(dsl, config)
+        createServices(dsl, config, info)
+        List<StageAware> stages = createStages(config)
         return new Flow(info, dsl)
                 .addStages(stages)
     }

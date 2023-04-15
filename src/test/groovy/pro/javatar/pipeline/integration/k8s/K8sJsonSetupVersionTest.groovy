@@ -14,7 +14,6 @@ import static org.junit.Assert.assertTrue
  */
 class K8sJsonSetupVersionTest extends Specification {
 
-    static final String K8S_CONTAINER_NAME = "org-structure";
     static final String K8S_CONTAINER_NEW_VERSION = "0.0.19";
     static final String K8S_CONTAINER_VERSION_GIVEN = "k8s/org-structure-given.json";
     static final String K8S_CONTAINER_VERSION_EXPECTED = "k8s/org-structure-expected.json";
@@ -24,7 +23,7 @@ class K8sJsonSetupVersionTest extends Specification {
         given: "givenDeployJsonConfig with 0.018 version"
 
         when: "we setup new version: " + K8S_CONTAINER_NEW_VERSION
-        def service = new K8sJsonSetupVersion(givenDeployJsonConfig, K8S_CONTAINER_NAME)
+        def service = new K8sJsonSetupVersion(givenDeployJsonConfig)
         String actualJson = service.setupVersion(K8S_CONTAINER_NEW_VERSION)
                 .replaceAll("\\s+","")
 
