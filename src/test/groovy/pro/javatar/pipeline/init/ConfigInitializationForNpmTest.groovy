@@ -5,6 +5,7 @@
 package pro.javatar.pipeline.init
 
 import groovy.util.logging.Slf4j
+import pro.javatar.pipeline.Flow
 import pro.javatar.pipeline.domain.BuildType
 import pro.javatar.pipeline.domain.Config
 import pro.javatar.pipeline.domain.ReleaseType
@@ -73,5 +74,19 @@ class ConfigInitializationForNpmTest extends Specification {
         and: "version config is correct"
         config.version.file == "package.json"
         config.version.pattern == "major.minor.patch.build"
+    }
+
+    void testNpmFlowCreation () {
+        def config = "init/k8s-pipeline-npm.yml"
+        given: "pipeline config:\n ${config}"
+
+        when: "conversion creating flow"
+        Flow flow = Flow.of(dsl, config)
+        // flow.execute()
+
+        then: "expected flow setup is correct"
+
+        expect: "pipeline config is correct"
+        flow.stageNames.size() == 3
     }
 }
