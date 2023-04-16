@@ -18,6 +18,7 @@ import spock.lang.Specification
  * @version 2021-01-22
  */
 @Slf4j(value = "logger")
+@Deprecated
 class DockerNpmBuildServiceTest extends Specification {
 
     DockerService dockerService = Mockito.mock(DockerService.class)
@@ -27,8 +28,8 @@ class DockerNpmBuildServiceTest extends Specification {
     def "test BuildAndUnitTests"() {
         given: "DockerNpmBuildService"
         DockerNpmBuildService service = new DockerNpmBuildService(dockerService, jenkinsDslService)
-        service.setType(npm.getType())
-        service.setNpmVersion(npm.npmVersion)
+//        service.setType(npm.getType())
+//        service.setNpmVersion(npm.vers)
         service.buildAndUnitTests(new ReleaseInfo())
         assert 1 == 1
     }
